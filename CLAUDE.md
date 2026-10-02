@@ -153,9 +153,11 @@ Không được cắt: tập test thật, metric F1, test vector.
 ## 11. Jira
 
 - Site: https://ai-engineer-learning.atlassian.net
-- Mã project: `TTAG` (tên `Transaction Tagger`, board Scrum). **Chưa tạo**: công cụ MCP không tạo được project Jira, cần tạo thủ công rồi cập nhật mục này.
-- Sprint 1 "Dữ liệu và nền tảng": 05/10 → 10/10/2026 (M0-M3).
-- Sprint 2 "Model và xuất": 12/10 → 17/10/2026 (M4-M7).
+- Mã project: `TTTM` (tên `Text-to-transaction-map`, team-managed, board Scrum id 34). Key đề xuất ban đầu là `TTAG`; project được tạo thủ công với key `TTTM`.
+- Sprint 1 "Dữ liệu và nền tảng" (id 37): 05/10 → 10/10/2026 (M0-M3).
+- Sprint 2 "Model và xuất" (id 38): 12/10 → 17/10/2026 (M4-M7).
+- Epic: `TTTM-1` (M0) đến `TTTM-8` (M7). Task: `TTTM-9` đến `TTTM-37`.
+- Ước lượng giờ ghi ở trường "Story point estimate" (1 điểm = 1 giờ) và trong mô tả. Project không có trường time tracking.
 - Quy ước đặt tên issue:
   - Epic: `M<số>: <tên module>`, ví dụ `M1: Schema và chuẩn hóa`.
   - Task: `[M<số>] <việc cần làm>`, ví dụ `[M1] Viết check_data.py`.

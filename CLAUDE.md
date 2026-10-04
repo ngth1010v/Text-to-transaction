@@ -61,11 +61,12 @@ Thư mục dữ liệu:
 
 ## 4. Quy ước kỹ thuật
 
-- Tối đa 32 từ/câu, 16 ký tự/từ. Dài hơn thì cắt.
+- Tối đa 100 từ/câu, 16 ký tự/từ. Dài hơn thì cắt. 100 cũng là số vị trí của positional embedding, không đổi sau khi đã xuất model.
 - `<PAD>` = 0, `<UNK>` = 1 (cho cả từ điển từ và từ điển ký tự).
 - Nhãn ở vị trí đệm = -100 (bỏ qua khi tính loss và metric).
 - Seed cố định cho `random`, `numpy`, `torch`. Cùng seed phải cho cùng kết quả.
-- Tensor đầu vào model: `word_ids` (32), `char_ids` (32 × 16), `tag_ids` (32).
+- Tensor đầu vào model: `word_ids` (100), `char_ids` (100 × 16), `tag_ids` (100). Mask đệm suy ra từ `word_ids != 0`, không lưu riêng.
+- Attention phải chặn vị trí đệm (gán điểm attention = -inf trước softmax). Không dùng causal mask: mỗi từ được nhìn cả hai phía.
 
 ## 5. Chuẩn hóa văn bản
 
@@ -80,10 +81,12 @@ Thư mục dữ liệu:
 Được dùng:
 
 - `numpy`
-- `torch`: `nn.Embedding`, `nn.LSTM`, `nn.Conv1d`, `nn.Linear`, optimizer
+- `torch`: `nn.Embedding`, `nn.Linear`, `nn.LayerNorm`, `nn.Dropout`, `nn.Conv1d`, optimizer
 - `pytest`
 
-Phải tự viết: vòng train, hàm loss, metric, data loader, F1 theo cụm (entity-level).
+Phải tự viết: multi-head self-attention, khối encoder, vòng train, hàm loss, metric, data loader, F1 theo cụm (entity-level).
+
+Không dùng `nn.MultiheadAttention`, `nn.TransformerEncoder(Layer)`, `F.scaled_dot_product_attention`: phía Kotlin phải viết lại từng phép tính, nên Python cũng viết tay để hai bên khớp. Hàm kích hoạt FFN dùng ReLU (dễ viết lại hơn GELU).
 
 Không dùng: HuggingFace/transformers, spaCy, NLTK, seqeval, scikit-learn, PyTorch Lightning, Trainer API.
 
@@ -97,7 +100,7 @@ Ngoại lệ: scikit-learn chỉ được dùng khi người dùng chủ động
 - Script chỉ dùng `argparse` tối thiểu.
 - Comment và tài liệu bằng tiếng Việt.
 
-Chế độ vừa học vừa làm: mục đích của repo là để học. Phần cốt lõi (LSTM, backward, vòng train) phải có comment ngắn giải thích ý nghĩa từng bước.
+Chế độ vừa học vừa làm: mục đích của repo là để học. Phần cốt lõi (self-attention, backward, vòng train) phải có comment ngắn giải thích ý nghĩa từng bước.
 
 ## 8. Cấu trúc repo
 
@@ -111,8 +114,8 @@ src/
   check_data.py    # kiểm tra JSONL
   metrics.py       # F1 theo cụm
   baseline.py      # baseline rule-based
-  lstm_numpy.py    # LSTM thuần NumPy
-  model_torch.py   # BiLSTM (+ char-CNN tùy chọn)
+  attention_numpy.py # self-attention thuần NumPy
+  model_torch.py   # Transformer encoder nhỏ (+ char-CNN tùy chọn)
   train.py         # vòng train tự viết
   export.py        # xuất model + test vector
 data/              # raw/, synth/, real_test/
@@ -131,8 +134,8 @@ export/            # model, vocab, test vector (đầu ra, không commit)
 | M1 | Schema nhãn, chuẩn hóa văn bản, định dạng JSONL, script kiểm tra dữ liệu (độ dài tokens = tags, BIO hợp lệ) | 5 | T4 07/10 |
 | M2 | Bộ sinh dữ liệu từ template (ghép mảnh theo nhiều thứ tự), nhiễu (bỏ dấu, viết tắt, lỗi gõ, từ đệm), chia train/val/test theo mảnh gốc, tập test thật gán tay (100-200 câu) | 8 | T6 09/10 |
 | M3 | Metric F1 theo cụm tự viết + baseline rule-based làm mốc so sánh | 3 | T7 10/10 |
-| M4 | LSTM thuần NumPy: forward, backward (BPTT), kiểm tra gradient, train thử trên dữ liệu mini | 6 | T3 13/10 |
-| M5 | BiLSTM (có thể thêm char-CNN) bằng PyTorch: tensor hóa dữ liệu (32 từ × 16 ký tự), vòng train tự viết, early stopping, chấm điểm bằng metric ở M3 | 6 | T5 15/10 |
+| M4 | Self-attention thuần NumPy (1 head, có mask đệm, residual, positional embedding): forward, backward, kiểm tra gradient, train thử trên dữ liệu mini | 6 | T3 13/10 |
+| M5 | Transformer encoder nhỏ (có thể thêm char-CNN) bằng PyTorch, attention tự viết: tensor hóa dữ liệu (100 từ × 16 ký tự), vòng train tự viết, early stopping, chấm điểm bằng metric ở M3 | 6 | T5 15/10 |
 | M6 | Phân tích lỗi trên tập test thật, bổ sung kiểu câu bị sai vào bộ sinh, train lại | 2.5 | T6 16/10 |
 | M7 | Xuất model (trọng số .npz hoặc JSON + từ điển từ/ký tự + danh sách nhãn + cấu hình), 100 test vector cho Kotlin, README hướng dẫn tích hợp | 3 | T7 17/10 |
 
@@ -156,6 +159,7 @@ Không được cắt: tập test thật, metric F1, test vector.
 - Mã project: `TTTM` (tên `Text-to-transaction-map`, team-managed, board Scrum id 34). Key đề xuất ban đầu là `TTAG`; project được tạo thủ công với key `TTTM`.
 - Sprint 1 "Dữ liệu và nền tảng" (id 37): 05/10 → 10/10/2026 (M0-M3).
 - Sprint 2 "Model và xuất" (id 38): 12/10 → 17/10/2026 (M4-M7).
+- 04/10/2026: đổi kiến trúc từ BiLSTM sang Transformer encoder (giới hạn 100 từ/câu). Đã sửa epic M4, M5 và các task liên quan.
 - Epic: `TTTM-1` (M0) đến `TTTM-8` (M7). Task: `TTTM-9` đến `TTTM-37`.
 - Ước lượng giờ ghi ở trường "Story point estimate" (1 điểm = 1 giờ) và trong mô tả. Project không có trường time tracking.
 - Quy ước đặt tên issue:
@@ -167,7 +171,7 @@ Không được cắt: tập test thật, metric F1, test vector.
 ## 12. Cách làm việc với Claude
 
 - Đọc `CLAUDE.md` đầu mỗi phiên.
-- Khi viết phần cốt lõi (LSTM, backward, vòng train): thêm comment ngắn từng bước trong code và giải thích ngắn bằng tiếng Việt trong câu trả lời.
+- Khi viết phần cốt lõi (self-attention, backward, vòng train): thêm comment ngắn từng bước trong code và giải thích ngắn bằng tiếng Việt trong câu trả lời.
 - Ưu tiên giải pháp đơn giản. Không thêm thư viện, class, hay lớp cấu hình khi chưa cần.
 - Không dùng thư viện bị cấm ở mục 6, kể cả khi tiện hơn.
 - Sửa `normalize.py` thì phải sinh lại test vector.

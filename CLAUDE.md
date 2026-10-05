@@ -13,6 +13,7 @@ Ví dụ: `hôm qua 5k đ gửi xe uit momo`
 - Một model duy nhất gán nhãn cả câu trong một lượt. Không tách thành nhiều bước (tìm tiền trước, rồi tìm cái khác).
 - Model cuối phải đủ nhỏ để chạy offline trên Android (Kotlin).
 - Repo này chỉ lo phần Python: dữ liệu, train, đánh giá, xuất model.
+- Hiện hỗ trợ `vi` và `en`. Thiết kế để thêm ngôn ngữ mới chỉ cần thêm dữ liệu rồi train lại, không sửa code (xem mục 13).
 
 Ngoài phạm vi repo:
 
@@ -32,6 +33,8 @@ Ngoài phạm vi repo:
 
 Tổng cộng 11 nhãn. Thứ tự nhãn (ánh xạ nhãn ↔ số) cố định trong `src/schema.py`; không đổi thứ tự sau khi đã xuất model.
 
+Bộ nhãn dùng chung cho mọi ngôn ngữ. Không thêm nhãn riêng cho ngôn ngữ nào.
+
 Quy ước BIO:
 
 - `B-X` mở đầu một cụm loại X. `I-X` là từ tiếp theo của cùng cụm đó.
@@ -49,15 +52,17 @@ Mỗi dòng là một object JSON:
 ```
 
 - `id`: chuỗi duy nhất trong toàn bộ dữ liệu.
-- `lang`: `vi` hoặc `en`.
+- `lang`: mã ISO 639-1, phải thuộc `LANGS` trong `src/schema.py` (hiện là `["vi", "en"]`). Đây là chỗ duy nhất khai báo danh sách ngôn ngữ; code khác không viết cứng `vi`/`en`.
 - `source`: `synthetic` hoặc `real`.
 - `tokens`, `tags`: hai danh sách cùng độ dài.
 
 Thư mục dữ liệu:
 
-- `data/raw/`: mảnh gốc (danh sách cụm MONEY / DATE / ACCOUNT / ITEM / TYPE) và template.
-- `data/synth/`: dữ liệu sinh ra (train / val / test). Không commit, sinh lại bằng `gen_data.py`.
-- `data/real_test/`: tập test thật gán tay (100-200 câu). Có commit.
+- `data/raw/<lang>/`: mảnh gốc và template của từng ngôn ngữ, mỗi loại một file: `money.txt`, `date.txt`, `account.txt`, `item.txt`, `type.txt`, `templates.txt`. `gen_data.py` đọc mọi thư mục có tên trong `LANGS`.
+- `data/synth/`: dữ liệu sinh ra (train / val / test), gộp mọi ngôn ngữ. Không commit, sinh lại bằng `gen_data.py`.
+- `data/real_test/<lang>.jsonl`: tập test thật gán tay, mỗi ngôn ngữ một file (tổng 100-200 câu). Có commit.
+
+Nhiễu trong `gen_data.py`: mỗi hàm nhiễu khai báo áp dụng cho ngôn ngữ nào. Ví dụ: bỏ dấu chỉ dùng cho `vi`.
 
 ## 4. Quy ước kỹ thuật
 
@@ -67,6 +72,7 @@ Thư mục dữ liệu:
 - Seed cố định cho `random`, `numpy`, `torch`. Cùng seed phải cho cùng kết quả.
 - Tensor đầu vào model: `word_ids` (100), `char_ids` (100 × 16), `tag_ids` (100). Mask đệm suy ra từ `word_ids != 0`, không lưu riêng.
 - Attention phải chặn vị trí đệm (gán điểm attention = -inf trước softmax). Không dùng causal mask: mỗi từ được nhìn cả hai phía.
+- Một model chung cho mọi ngôn ngữ, không có đầu vào `lang` (câu có thể trộn vi-en). Từ điển từ và từ điển ký tự xây từ tập train gộp mọi ngôn ngữ.
 
 ## 5. Chuẩn hóa văn bản
 
@@ -74,6 +80,9 @@ Thư mục dữ liệu:
 
 - Các bước: hạ chữ thường, gom khoảng trắng, tách từ bằng khoảng trắng.
 - Chỉ dùng thao tác có tương đương rõ ràng trong Kotlin. Không dùng regex phức tạp hay hành vi riêng của Python.
+- Không rẽ nhánh theo ngôn ngữ: mọi câu đi qua cùng các bước.
+- Chỉ hỗ trợ ngôn ngữ tách từ bằng khoảng trắng. Tiếng Trung, Nhật, Thái nằm ngoài phạm vi vì cần bộ tách từ riêng.
+- Test vector phải có chữ hoa ngoài ASCII của mọi ngôn ngữ trong `LANGS`, để bắt chỗ lệch giữa `str.lower()` và `lowercase()` của Kotlin.
 - Mọi thay đổi ở `normalize.py` bắt buộc phải sinh lại test vector trong `export/`.
 
 ## 6. Ràng buộc thư viện
@@ -108,7 +117,7 @@ Chế độ vừa học vừa làm: mục đích của repo là để học. Ph�
 CLAUDE.md
 README.md
 src/
-  schema.py        # bộ nhãn, ánh xạ nhãn <-> số
+  schema.py        # bộ nhãn, ánh xạ nhãn <-> số, danh sách ngôn ngữ LANGS
   normalize.py     # chuẩn hóa + tách từ (phải dễ viết lại y hệt bằng Kotlin)
   gen_data.py      # sinh dữ liệu template + nhiễu
   check_data.py    # kiểm tra JSONL
@@ -118,7 +127,10 @@ src/
   model_torch.py   # Transformer encoder nhỏ (+ char-CNN tùy chọn)
   train.py         # vòng train tự viết
   export.py        # xuất model + test vector
-data/              # raw/, synth/, real_test/
+data/
+  raw/<lang>/      # mảnh gốc + template theo ngôn ngữ
+  synth/           # dữ liệu sinh (không commit)
+  real_test/       # <lang>.jsonl, test thật gán tay
 tests/
 export/            # model, vocab, test vector (đầu ra, không commit)
 ```
@@ -150,8 +162,8 @@ Không được cắt: tập test thật, metric F1, test vector.
 ## 10. Quy tắc đánh giá
 
 - Chỉ dùng tập test thật (`data/real_test/`) để kết luận chất lượng model. Điểm trên dữ liệu sinh chỉ để theo dõi quá trình train.
-- Không để cùng một mảnh gốc xuất hiện ở cả train lẫn test. Chia train/val/test theo mảnh gốc, không chia theo câu đã ghép.
-- Metric chính: F1 theo cụm, báo riêng cho từng loại nhãn và trung bình.
+- Không để cùng một mảnh gốc xuất hiện ở cả train lẫn test. Chia train/val/test theo mảnh gốc, không chia theo câu đã ghép. Chia riêng trong từng ngôn ngữ.
+- Metric chính: F1 theo cụm, báo riêng cho từng loại nhãn, từng ngôn ngữ, và trung bình chung.
 
 ## 11. Jira
 
@@ -160,6 +172,7 @@ Không được cắt: tập test thật, metric F1, test vector.
 - Sprint 1 "Dữ liệu và nền tảng" (id 37): 05/10 → 10/10/2026 (M0-M3).
 - Sprint 2 "Model và xuất" (id 38): 12/10 → 17/10/2026 (M4-M7).
 - 04/10/2026: đổi kiến trúc từ BiLSTM sang Transformer encoder (giới hạn 100 từ/câu). Đã sửa epic M4, M5 và các task liên quan.
+- 05/10/2026: thiết kế mở rộng đa ngôn ngữ (`LANGS`, dữ liệu theo thư mục ngôn ngữ, F1 theo ngôn ngữ). Đã sửa mô tả TTTM-2, 3, 12, 13, 14, 16, 17, 18, 20, 27, 31, 34, 35, 36.
 - Epic: `TTTM-1` (M0) đến `TTTM-8` (M7). Task: `TTTM-9` đến `TTTM-37`.
 - Ước lượng giờ ghi ở trường "Story point estimate" (1 điểm = 1 giờ) và trong mô tả. Project không có trường time tracking.
 - Quy ước đặt tên issue:
@@ -175,3 +188,14 @@ Không được cắt: tập test thật, metric F1, test vector.
 - Ưu tiên giải pháp đơn giản. Không thêm thư viện, class, hay lớp cấu hình khi chưa cần.
 - Không dùng thư viện bị cấm ở mục 6, kể cả khi tiện hơn.
 - Sửa `normalize.py` thì phải sinh lại test vector.
+
+## 13. Thêm ngôn ngữ mới
+
+Chỉ áp dụng cho ngôn ngữ tách từ bằng khoảng trắng. Không sửa code ngoài bước 1 và bước 3.
+
+1. Thêm mã ngôn ngữ vào `LANGS` trong `src/schema.py`.
+2. Tạo `data/raw/<lang>/` với đủ 6 file mảnh gốc và template.
+3. Khai báo hàm nhiễu nào áp dụng cho ngôn ngữ mới; thêm hàm nhiễu riêng nếu cần.
+4. Gán tay `data/real_test/<lang>.jsonl` (ít nhất 30 câu), chạy `check_data.py`.
+5. Sinh lại dữ liệu, train lại từ đầu (từ điển đổi nên embedding đổi).
+6. Xuất lại model và test vector; kiểm tra F1 của ngôn ngữ mới trên tập test thật.

@@ -190,6 +190,7 @@ Không được cắt: tập test thật, metric F1, test vector.
 - Ưu tiên giải pháp đơn giản. Không thêm thư viện, class, hay lớp cấu hình khi chưa cần.
 - Không dùng thư viện bị cấm ở mục 6, kể cả khi tiện hơn.
 - Sửa `normalize.py` thì phải sinh lại test vector.
+- Commit message bằng tiếng Anh, có tiền tố module + task Jira (`[M0][TTTM-9] [Chore] ...`), theo skill `.claude/skills/tttm-commit-message/`.
 
 ## 13. Thêm ngôn ngữ mới
 

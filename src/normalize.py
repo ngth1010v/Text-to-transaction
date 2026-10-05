@@ -1,3 +1,13 @@
-"""Chuẩn hóa văn bản + tách từ. Phải viết lại y hệt được bằng Kotlin."""
+"""Chuyển từ text -> list[str], chỉ hỗ trợ các ngôn ngữ có từ được cách bằng dấu cách (vie,eng,...), không support trung,hàn,nhật,..."""
 
-# TODO(M1): chưa viết
+
+def normalize(text: str):
+
+    if not isinstance(text, str):
+        raise TypeError("text phải là string")
+
+    text = text.lower()  # kotlin: .lowercase()
+    text = text.strip()  # kotlin: .trim()
+    words = text.split()  # kotlin: .split(Regex("(?U)\\s+")).filter { it.isNotEmpty() }
+
+    return words

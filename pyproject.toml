@@ -1,0 +1,31 @@
+[project]
+name = "text-to-transaction"
+version = "0.1.0"
+description = "BIO tagger for short transaction sentences (offline model for Android)"
+readme = "README.md"
+authors = [
+    { name = "ngth1010v", email = "thinh0947709008@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "numpy>=2.5.3",
+    "torch>=2.14.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+# Script chạy trực tiếp từ src/, không build thành package.
+[tool.uv]
+package = false
+
+# torch bản CPU: model nhỏ, không cần CUDA, bản cài nhẹ hơn nhiều.
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

@@ -101,7 +101,12 @@ Không dùng: HuggingFace/transformers, spaCy, NLTK, seqeval, scikit-learn, PyTo
 
 Ngoại lệ: scikit-learn chỉ được dùng khi người dùng chủ động yêu cầu làm baseline.
 
-Cài thư viện và chạy script bằng `uv` (`uv venv`, `uv pip install ...`, `uv run ...`), không dùng `pip` trực tiếp.
+Quản lý môi trường bằng `uv`, không dùng `pip` hay `uv pip`:
+
+- Thư viện khai báo trong `pyproject.toml`, phiên bản chốt trong `uv.lock` (cả hai đều commit). Python 3.14 (`.python-version`).
+- Thêm thư viện: `uv add <tên>`; thư viện chỉ dùng khi phát triển (pytest): `uv add --dev <tên>`. Cài môi trường: `uv sync`. Chạy: `uv run ...`.
+- `[tool.uv] package = false`: script chạy thẳng từ `src/`, không build package.
+- `torch` lấy từ index CPU của PyTorch (`[tool.uv.sources]`), không cần CUDA.
 
 ## 7. Nguyên tắc code
 
@@ -118,6 +123,8 @@ Chế độ vừa học vừa làm: mục đích của repo là để học. Ph�
 ```
 CLAUDE.md
 README.md
+pyproject.toml     # thư viện + cấu hình uv
+uv.lock            # phiên bản chốt (uv tự sinh)
 src/
   schema.py        # bộ nhãn, ánh xạ nhãn <-> số, danh sách ngôn ngữ LANGS
   normalize.py     # chuẩn hóa + tách từ (phải dễ viết lại y hệt bằng Kotlin)

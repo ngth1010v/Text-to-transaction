@@ -11,11 +11,17 @@ Bộ nhãn: `O`, `MONEY`, `DATE`, `ACCOUNT`, `ITEM`, `TYPE`. Chi tiết quy ư�
 
 ## Cài đặt
 
-Dùng [uv](https://docs.astral.sh/uv/), không dùng `pip`.
+Dùng [uv](https://docs.astral.sh/uv/), không dùng `pip`. Thư viện khai báo trong `pyproject.toml`, phiên bản chốt trong `uv.lock`, Python 3.14 (`.python-version`). `torch` lấy bản CPU.
 
 ```
-uv venv
-uv pip install numpy torch pytest
+uv sync
+```
+
+Thêm thư viện:
+
+```
+uv add <tên>          # thư viện chạy
+uv add --dev <tên>    # chỉ dùng khi phát triển (pytest...)
 ```
 
 ## Cách chạy

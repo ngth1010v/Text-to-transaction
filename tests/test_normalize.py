@@ -14,7 +14,7 @@ def test_invalid_input():
 def test_output():
     assert isinstance(normalize("xin chào"), list)
     for w in normalize("An trua 10k momo"):
-        assert isinstance(w,str)
+        assert isinstance(w, str)
 
 
 def test_accented_char():

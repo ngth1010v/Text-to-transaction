@@ -1,0 +1,100 @@
+{"id": "real-en-0001", "lang": "en", "source": "real", "tokens": ["yesterday", "5", "dollars", "parking", "paypal"], "tags": ["B-DATE", "B-MONEY", "I-MONEY", "B-ITEM", "B-ACCOUNT"]}
+{"id": "real-en-0002", "lang": "en", "source": "real", "tokens": ["spent", "$12", "on", "lunch", "today"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ITEM", "B-DATE"]}
+{"id": "real-en-0003", "lang": "en", "source": "real", "tokens": ["coffee", "4.50", "visa"], "tags": ["B-ITEM", "B-MONEY", "B-ACCOUNT"]}
+{"id": "real-en-0004", "lang": "en", "source": "real", "tokens": ["received", "salary", "3000", "usd", "chase"], "tags": ["B-TYPE", "B-ITEM", "B-MONEY", "I-MONEY", "B-ACCOUNT"]}
+{"id": "real-en-0005", "lang": "en", "source": "real", "tokens": ["transfer", "$200", "to", "savings", "account", "last", "night"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ACCOUNT", "I-ACCOUNT", "B-DATE", "I-DATE"]}
+{"id": "real-en-0006", "lang": "en", "source": "real", "tokens": ["groceries", "85", "bucks", "debit", "card", "this", "morning"], "tags": ["B-ITEM", "B-MONEY", "I-MONEY", "B-ACCOUNT", "I-ACCOUNT", "B-DATE", "I-DATE"]}
+{"id": "real-en-0007", "lang": "en", "source": "real", "tokens": ["uber", "to", "work", "15", "dollars", "apple", "pay"], "tags": ["B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY", "I-MONEY", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0008", "lang": "en", "source": "real", "tokens": ["paid", "rent", "$1200", "on", "monday"], "tags": ["B-TYPE", "B-ITEM", "B-MONEY", "O", "B-DATE"]}
+{"id": "real-en-0009", "lang": "en", "source": "real", "tokens": ["gas", "40", "bucks", "credit", "card", "yesterday"], "tags": ["B-ITEM", "B-MONEY", "I-MONEY", "B-ACCOUNT", "I-ACCOUNT", "B-DATE"]}
+{"id": "real-en-0010", "lang": "en", "source": "real", "tokens": ["income", "500", "freelance", "work", "venmo"], "tags": ["B-TYPE", "B-MONEY", "B-ITEM", "I-ITEM", "B-ACCOUNT"]}
+{"id": "real-en-0011", "lang": "en", "source": "real", "tokens": ["um", "bought", "a", "book", "$18"], "tags": ["O", "B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY"]}
+{"id": "real-en-0012", "lang": "en", "source": "real", "tokens": ["netflix", "subscription", "15.99", "mastercard"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT"]}
+{"id": "real-en-0013", "lang": "en", "source": "real", "tokens": ["last", "friday", "dinner", "with", "friends", "$75"], "tags": ["B-DATE", "I-DATE", "B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY"]}
+{"id": "real-en-0014", "lang": "en", "source": "real", "tokens": ["expense", "30", "dollars", "haircut"], "tags": ["B-TYPE", "B-MONEY", "I-MONEY", "B-ITEM"]}
+{"id": "real-en-0015", "lang": "en", "source": "real", "tokens": ["paid", "electric", "bill", "$120", "wells", "fargo"], "tags": ["B-TYPE", "B-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0016", "lang": "en", "source": "real", "tokens": ["phone", "bill", "45", "dollars", "this", "month"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "I-MONEY", "B-DATE", "I-DATE"]}
+{"id": "real-en-0017", "lang": "en", "source": "real", "tokens": ["received", "refund", "$25", "paypal"], "tags": ["B-TYPE", "B-ITEM", "B-MONEY", "B-ACCOUNT"]}
+{"id": "real-en-0018", "lang": "en", "source": "real", "tokens": ["movie", "tickets", "$24", "saturday", "night"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-DATE", "I-DATE"]}
+{"id": "real-en-0019", "lang": "en", "source": "real", "tokens": ["sent", "50", "bucks", "to", "mom", "via", "zelle"], "tags": ["B-TYPE", "B-MONEY", "I-MONEY", "O", "B-ITEM", "O", "B-ACCOUNT"]}
+{"id": "real-en-0020", "lang": "en", "source": "real", "tokens": ["two", "days", "ago", "pizza", "$20", "cash"], "tags": ["B-DATE", "I-DATE", "I-DATE", "B-ITEM", "B-MONEY", "B-ACCOUNT"]}
+{"id": "real-en-0021", "lang": "en", "source": "real", "tokens": ["gym", "membership", "$40", "october", "1"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-DATE", "I-DATE"]}
+{"id": "real-en-0022", "lang": "en", "source": "real", "tokens": ["breakfast", "8", "dollars", "this", "morning"], "tags": ["B-ITEM", "B-MONEY", "I-MONEY", "B-DATE", "I-DATE"]}
+{"id": "real-en-0023", "lang": "en", "source": "real", "tokens": ["spent", "60", "on", "new", "shoes", "visa"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ITEM", "I-ITEM", "B-ACCOUNT"]}
+{"id": "real-en-0024", "lang": "en", "source": "real", "tokens": ["bus", "ticket", "2.75"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY"]}
+{"id": "real-en-0025", "lang": "en", "source": "real", "tokens": ["transfer", "1000", "dollars", "to", "checking"], "tags": ["B-TYPE", "B-MONEY", "I-MONEY", "O", "B-ACCOUNT"]}
+{"id": "real-en-0026", "lang": "en", "source": "real", "tokens": ["yesterday", "parking", "fee", "10", "bucks"], "tags": ["B-DATE", "B-ITEM", "I-ITEM", "B-MONEY", "I-MONEY"]}
+{"id": "real-en-0027", "lang": "en", "source": "real", "tokens": ["income", "bonus", "2k", "bank", "of", "america"], "tags": ["B-TYPE", "B-ITEM", "B-MONEY", "B-ACCOUNT", "I-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0028", "lang": "en", "source": "real", "tokens": ["lunch", "at", "mcdonalds", "9.50", "debit", "card"], "tags": ["B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0029", "lang": "en", "source": "real", "tokens": ["last", "week", "car", "repair", "$350", "credit", "card"], "tags": ["B-DATE", "I-DATE", "B-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0030", "lang": "en", "source": "real", "tokens": ["internet", "bill", "$60", "sept", "15"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-DATE", "I-DATE"]}
+{"id": "real-en-0031", "lang": "en", "source": "real", "tokens": ["spent", "twenty", "dollars", "on", "snacks"], "tags": ["B-TYPE", "B-MONEY", "I-MONEY", "O", "B-ITEM"]}
+{"id": "real-en-0032", "lang": "en", "source": "real", "tokens": ["doctor", "visit", "$150", "cash", "last", "tuesday"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT", "B-DATE", "I-DATE"]}
+{"id": "real-en-0033", "lang": "en", "source": "real", "tokens": ["received", "50", "birthday", "gift", "venmo"], "tags": ["B-TYPE", "B-MONEY", "B-ITEM", "I-ITEM", "B-ACCOUNT"]}
+{"id": "real-en-0034", "lang": "en", "source": "real", "tokens": ["tuition", "fee", "$2500", "wire", "transfer"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-TYPE", "I-TYPE"]}
+{"id": "real-en-0035", "lang": "en", "source": "real", "tokens": ["coffe", "3", "bucks", "tday"], "tags": ["B-ITEM", "B-MONEY", "I-MONEY", "B-DATE"]}
+{"id": "real-en-0036", "lang": "en", "source": "real", "tokens": ["groseries", "at", "walmart", "$64"], "tags": ["B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY"]}
+{"id": "real-en-0037", "lang": "en", "source": "real", "tokens": ["paid", "water", "bill", "35", "dollars", "online", "banking"], "tags": ["B-TYPE", "B-ITEM", "I-ITEM", "B-MONEY", "I-MONEY", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0038", "lang": "en", "source": "real", "tokens": ["taxi", "$22", "last", "night", "cash"], "tags": ["B-ITEM", "B-MONEY", "B-DATE", "I-DATE", "B-ACCOUNT"]}
+{"id": "real-en-0039", "lang": "en", "source": "real", "tokens": ["income", "sold", "old", "bike", "$120"], "tags": ["B-TYPE", "B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY"]}
+{"id": "real-en-0040", "lang": "en", "source": "real", "tokens": ["spotify", "$10.99", "paypal"], "tags": ["B-ITEM", "B-MONEY", "B-ACCOUNT"]}
+{"id": "real-en-0041", "lang": "en", "source": "real", "tokens": ["this", "afternoon", "haircut", "25", "bucks"], "tags": ["B-DATE", "I-DATE", "B-ITEM", "B-MONEY", "I-MONEY"]}
+{"id": "real-en-0042", "lang": "en", "source": "real", "tokens": ["deposit", "500", "into", "savings"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ACCOUNT"]}
+{"id": "real-en-0043", "lang": "en", "source": "real", "tokens": ["pharmacy", "$18.40", "debit"], "tags": ["B-ITEM", "B-MONEY", "B-ACCOUNT"]}
+{"id": "real-en-0044", "lang": "en", "source": "real", "tokens": ["expense", "dinner", "45", "dollars", "friday"], "tags": ["B-TYPE", "B-ITEM", "B-MONEY", "I-MONEY", "B-DATE"]}
+{"id": "real-en-0045", "lang": "en", "source": "real", "tokens": ["concert", "tickets", "$90", "credit", "card"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0046", "lang": "en", "source": "real", "tokens": ["wedding", "gift", "$100", "last", "sunday"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-DATE", "I-DATE"]}
+{"id": "real-en-0047", "lang": "en", "source": "real", "tokens": ["transfer", "300", "to", "revolut"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ACCOUNT"]}
+{"id": "real-en-0048", "lang": "en", "source": "real", "tokens": ["lunch", "12", "bucks", "cash", "app"], "tags": ["B-ITEM", "B-MONEY", "I-MONEY", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0049", "lang": "en", "source": "real", "tokens": ["on", "oct", "3", "paid", "car", "insurance", "$180"], "tags": ["O", "B-DATE", "I-DATE", "B-TYPE", "B-ITEM", "I-ITEM", "B-MONEY"]}
+{"id": "real-en-0050", "lang": "en", "source": "real", "tokens": ["spent", "5", "dollars", "on", "parking", "at", "uit"], "tags": ["B-TYPE", "B-MONEY", "I-MONEY", "O", "B-ITEM", "I-ITEM", "I-ITEM"]}
+{"id": "real-en-0051", "lang": "en", "source": "real", "tokens": ["ice", "cream", "$4"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY"]}
+{"id": "real-en-0052", "lang": "en", "source": "real", "tokens": ["yesterday", "bought", "groceries", "72", "dollars", "amex"], "tags": ["B-DATE", "B-ITEM", "I-ITEM", "B-MONEY", "I-MONEY", "B-ACCOUNT"]}
+{"id": "real-en-0053", "lang": "en", "source": "real", "tokens": ["salary", "4500", "end", "of", "month", "chase"], "tags": ["B-ITEM", "B-MONEY", "B-DATE", "I-DATE", "I-DATE", "B-ACCOUNT"]}
+{"id": "real-en-0054", "lang": "en", "source": "real", "tokens": ["sent", "$40", "for", "dinner", "split", "venmo"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ITEM", "I-ITEM", "B-ACCOUNT"]}
+{"id": "real-en-0055", "lang": "en", "source": "real", "tokens": ["laptop", "1200", "dollars", "credit", "card", "last", "month"], "tags": ["B-ITEM", "B-MONEY", "I-MONEY", "B-ACCOUNT", "I-ACCOUNT", "B-DATE", "I-DATE"]}
+{"id": "real-en-0056", "lang": "en", "source": "real", "tokens": ["train", "ticket", "$35", "this", "morning"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-DATE", "I-DATE"]}
+{"id": "real-en-0057", "lang": "en", "source": "real", "tokens": ["spent", "15", "on", "books"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ITEM"]}
+{"id": "real-en-0058", "lang": "en", "source": "real", "tokens": ["interest", "$3.20", "received", "savings", "account"], "tags": ["B-ITEM", "B-MONEY", "B-TYPE", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0059", "lang": "en", "source": "real", "tokens": ["electricity", "98", "usd", "september"], "tags": ["B-ITEM", "B-MONEY", "I-MONEY", "B-DATE"]}
+{"id": "real-en-0060", "lang": "en", "source": "real", "tokens": ["gas", "station", "fifty", "dollars", "monday"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "I-MONEY", "B-DATE"]}
+{"id": "real-en-0061", "lang": "en", "source": "real", "tokens": ["cashback", "$12", "received", "discover", "card"], "tags": ["B-ITEM", "B-MONEY", "B-TYPE", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0062", "lang": "en", "source": "real", "tokens": ["dinner", "date", "$85", "saturday", "visa"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-DATE", "B-ACCOUNT"]}
+{"id": "real-en-0063", "lang": "en", "source": "real", "tokens": ["yesterday", "coffee", "and", "bagel", "$7"], "tags": ["B-DATE", "B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY"]}
+{"id": "real-en-0064", "lang": "en", "source": "real", "tokens": ["transfer", "$250", "to", "mom"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ITEM"]}
+{"id": "real-en-0065", "lang": "en", "source": "real", "tokens": ["uber", "eats", "$28", "apple", "pay", "tonight"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT", "I-ACCOUNT", "B-DATE"]}
+{"id": "real-en-0066", "lang": "en", "source": "real", "tokens": ["expense", "office", "supplies", "$32"], "tags": ["B-TYPE", "B-ITEM", "I-ITEM", "B-MONEY"]}
+{"id": "real-en-0067", "lang": "en", "source": "real", "tokens": ["water", "1", "dollar"], "tags": ["B-ITEM", "B-MONEY", "I-MONEY"]}
+{"id": "real-en-0068", "lang": "en", "source": "real", "tokens": ["paid", "credit", "card", "bill", "$800", "from", "checking", "account"], "tags": ["B-TYPE", "B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY", "O", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0069", "lang": "en", "source": "real", "tokens": ["hotel", "$220", "last", "weekend", "amex"], "tags": ["B-ITEM", "B-MONEY", "B-DATE", "I-DATE", "B-ACCOUNT"]}
+{"id": "real-en-0070", "lang": "en", "source": "real", "tokens": ["income", "tutoring", "$60", "cash", "today"], "tags": ["B-TYPE", "B-ITEM", "B-MONEY", "B-ACCOUNT", "B-DATE"]}
+{"id": "real-en-0071", "lang": "en", "source": "real", "tokens": ["flowers", "$30", "sunday"], "tags": ["B-ITEM", "B-MONEY", "B-DATE"]}
+{"id": "real-en-0072", "lang": "en", "source": "real", "tokens": ["daycare", "fee", "$400", "this", "week"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-DATE", "I-DATE"]}
+{"id": "real-en-0073", "lang": "en", "source": "real", "tokens": ["spent", "$9", "on", "burger"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ITEM"]}
+{"id": "real-en-0074", "lang": "en", "source": "real", "tokens": ["phone", "case", "$15", "paypal"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT"]}
+{"id": "real-en-0075", "lang": "en", "source": "real", "tokens": ["got", "$100", "from", "grandma"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ITEM"]}
+{"id": "real-en-0076", "lang": "en", "source": "real", "tokens": ["bike", "repair", "$45", "wednesday"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-DATE"]}
+{"id": "real-en-0077", "lang": "en", "source": "real", "tokens": ["transferred", "$500", "to", "wise"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ACCOUNT"]}
+{"id": "real-en-0078", "lang": "en", "source": "real", "tokens": ["movie", "12", "dollars", "last", "night"], "tags": ["B-ITEM", "B-MONEY", "I-MONEY", "B-DATE", "I-DATE"]}
+{"id": "real-en-0079", "lang": "en", "source": "real", "tokens": ["pet", "food", "$38", "debit", "card"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0080", "lang": "en", "source": "real", "tokens": ["uh", "spent", "20", "bucks", "on", "gas", "yesterday"], "tags": ["O", "B-TYPE", "B-MONEY", "I-MONEY", "O", "B-ITEM", "B-DATE"]}
+{"id": "real-en-0081", "lang": "en", "source": "real", "tokens": ["rent", "$950", "october", "1st", "bank", "transfer"], "tags": ["B-ITEM", "B-MONEY", "B-DATE", "I-DATE", "B-TYPE", "I-TYPE"]}
+{"id": "real-en-0082", "lang": "en", "source": "real", "tokens": ["dentist", "$120", "visa"], "tags": ["B-ITEM", "B-MONEY", "B-ACCOUNT"]}
+{"id": "real-en-0083", "lang": "en", "source": "real", "tokens": ["parking", "3", "dollars", "this", "morning", "cash"], "tags": ["B-ITEM", "B-MONEY", "I-MONEY", "B-DATE", "I-DATE", "B-ACCOUNT"]}
+{"id": "real-en-0084", "lang": "en", "source": "real", "tokens": ["received", "dividend", "$45", "robinhood"], "tags": ["B-TYPE", "B-ITEM", "B-MONEY", "B-ACCOUNT"]}
+{"id": "real-en-0085", "lang": "en", "source": "real", "tokens": ["new", "headphones", "$79", "amazon", "pay"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0086", "lang": "en", "source": "real", "tokens": ["spent", "$6", "on", "bubble", "tea"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ITEM", "I-ITEM"]}
+{"id": "real-en-0087", "lang": "en", "source": "real", "tokens": ["car", "wash", "$15", "sunday"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-DATE"]}
+{"id": "real-en-0088", "lang": "en", "source": "real", "tokens": ["transfer", "2000", "to", "investment", "account"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0089", "lang": "en", "source": "real", "tokens": ["school", "supplies", "$55", "last", "thursday"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-DATE", "I-DATE"]}
+{"id": "real-en-0090", "lang": "en", "source": "real", "tokens": ["yesterday", "snacks", "4", "bucks", "cash"], "tags": ["B-DATE", "B-ITEM", "B-MONEY", "I-MONEY", "B-ACCOUNT"]}
+{"id": "real-en-0091", "lang": "en", "source": "real", "tokens": ["water", "bill", "$42", "sep", "30"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-DATE", "I-DATE"]}
+{"id": "real-en-0092", "lang": "en", "source": "real", "tokens": ["income", "side", "job", "$200", "paypal"], "tags": ["B-TYPE", "B-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT"]}
+{"id": "real-en-0093", "lang": "en", "source": "real", "tokens": ["lunch", "ten", "dollars", "today"], "tags": ["B-ITEM", "B-MONEY", "I-MONEY", "B-DATE"]}
+{"id": "real-en-0094", "lang": "en", "source": "real", "tokens": ["gifts", "$150", "credit", "card"], "tags": ["B-ITEM", "B-MONEY", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0095", "lang": "en", "source": "real", "tokens": ["expense", "$70", "electric", "bill"], "tags": ["B-TYPE", "B-MONEY", "B-ITEM", "I-ITEM"]}
+{"id": "real-en-0096", "lang": "en", "source": "real", "tokens": ["monthly", "train", "pass", "$100"], "tags": ["B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY"]}
+{"id": "real-en-0097", "lang": "en", "source": "real", "tokens": ["sent", "$20", "to", "brother", "zelle"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ITEM", "B-ACCOUNT"]}
+{"id": "real-en-0098", "lang": "en", "source": "real", "tokens": ["coffee", "at", "highlands", "45k", "vnd", "momo"], "tags": ["B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY", "I-MONEY", "B-ACCOUNT"]}
+{"id": "real-en-0099", "lang": "en", "source": "real", "tokens": ["yesterday", "pho", "50k", "cash"], "tags": ["B-DATE", "B-ITEM", "B-MONEY", "B-ACCOUNT"]}
+{"id": "real-en-0100", "lang": "en", "source": "real", "tokens": ["paid", "parking", "at", "uit", "5k", "dong", "momo", "yesterday"], "tags": ["B-TYPE", "B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY", "I-MONEY", "B-ACCOUNT", "B-DATE"]}

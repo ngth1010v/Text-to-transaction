@@ -1,0 +1,20 @@
+{"id": "real-vi-0001", "lang": "vi", "tokens": ["hôm", "qua", "5k", "đ", "gửi", "xe", "uit", "momo"], "tags": ["B-DATE", "I-DATE", "B-MONEY", "I-MONEY", "B-ITEM", "I-ITEM", "I-ITEM", "B-ACCOUNT"]}
+{"id": "real-vi-0002", "lang": "vi", "source": "real", "tokens": ["chi", "50k", "ăn", "sáng", "sáng", "nay"], "tags": ["B-TYPE", "B-MONEY", "B-ITEM", "I-ITEM", "B-DATE", "I-DATE"]}
+{"id": "real-vi-0003", "lang": "vi", "source": "real", "tokens": ["nhận", "lương", "15", "triệu", "vào", "vietcombank"], "tags": ["B-TYPE", "B-ITEM", "B-MONEY", "I-MONEY", "O", "B-ACCOUNT"]}
+{"id": "real-vi-0004", "lang": "vi", "source": "real", "tokens": ["chuyển", "khoản", "200k", "cho", "mẹ", "tối", "qua"], "tags": ["B-TYPE", "I-TYPE", "B-MONEY", "O", "B-ITEM", "B-DATE", "I-DATE"]}
+{"id": "real-vi-0005", "lang": "vi", "source": "real", "tokens": ["cafe", "35k", "tiền", "mặt"], "tags": ["B-ITEM", "B-MONEY", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-vi-0005", "lang": "vi", "source": "real", "tokens": ["hom", "nay", "an", "trua", "45", "nghin"], "tags": ["B-DATE", "I-DATE", "B-ITEM", "I-ITEM", "B-MONEY", "I-MONEY"]}
+{"id": "real-vi-0007", "lang": "vi", "source": "real", "tokens": ["đổ", "xăng", "100k", "thẻ", "tín", "dụng", "thứ", "hai"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT", "I-ACCOUNT", "I-ACCOUNT", "B-DATE", "I-DATE"]}
+{"id": "real-vi-0008", "lang": "vi", "source": "real", "tokens": ["tiền", "điện", "tháng", "9", "850", "nghìn", "ck", "qua", "techcombank"], "tags": ["B-ITEM", "I-ITEM", "B-DATE", "I-DATE", "B-MONEY", "I-MONEY", "B-TYPE", "O", "B-ACCOUNT"]}
+{"id": "real-vi-0009", "lang": "vi", "source": "real", "tokens": ["ừm", "mua", "rau", "20k", "nha"], "tags": ["O", "B-ITEM", "I-ITEM", "B-MONEY", "O"]}
+{"id": "real-vi-0010", "lang": "vi", "source": "real", "tokens": ["500k", "bán", "đồ", "cũ", "hôm", "kia"], "tags": ["B-TYPE", "B-MONEY", "B-ITEM", "I-ITEM", "I-ITEM", "B-DATE", "I-DATE"]}
+{"id": "real-vi-0011", "lang": "vi", "source": "real", "tokens": ["grab", "đi", "làm", "38k", "zalopay"], "tags": ["B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT"]}
+{"id": "real-vi-0012", "lang": "vi", "source": "real", "tokens": ["ngày", "15/9", "đóng", "học", "phí", "12", "triệu", "500", "bidv"], "tags": ["B-DATE", "I-DATE", "B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY", "I-MONEY", "I-MONEY", "B-ACCOUNT"]}
+{"id": "real-vi-0013", "lang": "vi", "source": "real", "tokens": ["chi", "1tr2", "tiền", "nhà"], "tags": ["B-TYPE", "B-MONEY", "B-ITEM", "I-ITEM"]}
+{"id": "real-vi-0014", "lang": "vi", "source": "real", "tokens": ["tra", "tien", "net", "150k", "hqua"], "tags": ["B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY", "B-DATE"]}
+{"id": "real-vi-0015", "lang": "vi", "source": "real", "tokens": ["mua", "sách", "89.000", "đồng", "shopeepay"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "I-MONEY", "B-ACCOUNT"]}
+{"id": "real-vi-0016", "lang": "vi", "source": "real", "tokens": ["sáng", "nay", "ăn", "phở", "năm", "mươi", "nghìn"], "tags": ["B-DATE", "I-DATE", "B-ITEM", "I-ITEM", "B-MONEY", "I-MONEY", "I-MONEY"]}
+{"id": "real-vi-0017", "lang": "vi", "source": "real", "tokens": ["chuyển", "2", "triệu", "sang", "ví", "momo"], "tags": ["B-TYPE", "B-MONEY", "I-MONEY", "O", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-vi-0018", "lang": "vi", "source": "real", "tokens": ["tối", "nay", "đi", "xem", "phim", "120k", "visa"], "tags": ["B-DATE", "I-DATE", "B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT"]}
+{"id": "real-vi-0019", "lang": "vi", "source": "real", "tokens": ["tiền", "nước", "95k"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY"]}
+{"id": "real-vi-0020", "lang": "vi", "source": "real", "tokens": ["thu", "tiền", "thưởng", "3", "triệu", "acb"], "tags": ["B-TYPE", "B-ITEM", "I-ITEM", "B-MONEY", "I-MONEY", "B-ACCOUNT"]}

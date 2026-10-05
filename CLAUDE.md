@@ -107,6 +107,7 @@ Quản lý môi trường bằng `uv`, không dùng `pip` hay `uv pip`:
 - Thêm thư viện: `uv add <tên>`; thư viện chỉ dùng khi phát triển (pytest): `uv add --dev <tên>`. Cài môi trường: `uv sync`. Chạy: `uv run ...`.
 - `[tool.uv] package = false`: script chạy thẳng từ `src/`, không build package.
 - `torch` lấy từ index CPU của PyTorch (`[tool.uv.sources]`), không cần CUDA.
+- Test import thẳng module trong `src/` (`from schema import ...`) nhờ `[tool.pytest.ini_options] pythonpath = ["src"]`.
 
 ## 7. Nguyên tắc code
 

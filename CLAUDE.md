@@ -101,6 +101,8 @@ Không dùng: HuggingFace/transformers, spaCy, NLTK, seqeval, scikit-learn, PyTo
 
 Ngoại lệ: scikit-learn chỉ được dùng khi người dùng chủ động yêu cầu làm baseline.
 
+Cài thư viện và chạy script bằng `uv` (`uv venv`, `uv pip install ...`, `uv run ...`), không dùng `pip` trực tiếp.
+
 ## 7. Nguyên tắc code
 
 - Đơn giản nhất có thể: thư mục phẳng, mỗi file một việc.

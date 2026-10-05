@@ -11,19 +11,22 @@ Bộ nhãn: `O`, `MONEY`, `DATE`, `ACCOUNT`, `ITEM`, `TYPE`. Chi tiết quy ư�
 
 ## Cài đặt
 
+Dùng [uv](https://docs.astral.sh/uv/), không dùng `pip`.
+
 ```
-pip install numpy torch pytest
+uv venv
+uv pip install numpy torch pytest
 ```
 
 ## Cách chạy
 
 TODO: bổ sung dần theo từng module.
 
-- Sinh dữ liệu: `python src/gen_data.py` (M2)
-- Kiểm tra dữ liệu: `python src/check_data.py <file.jsonl>` (M1)
-- Train: `python src/train.py` (M5)
-- Xuất model: `python src/export.py` (M7)
-- Test: `pytest`
+- Sinh dữ liệu: `uv run python src/gen_data.py` (M2)
+- Kiểm tra dữ liệu: `uv run python src/check_data.py <file.jsonl>` (M1)
+- Train: `uv run python src/train.py` (M5)
+- Xuất model: `uv run python src/export.py` (M7)
+- Test: `uv run pytest`
 
 ## Tích hợp Kotlin
 

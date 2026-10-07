@@ -1,0 +1,50 @@
+coffee
+lunch
+dinner
+breakfast
+groceries
+snacks
+pizza
+sushi
+burger
+bubble tea
+parking
+gas
+uber
+taxi
+bus fare
+train ticket
+flight
+car insurance
+car repair
+oil change
+rent
+electric bill
+water bill
+internet bill
+phone bill
+netflix
+spotify
+gym membership
+haircut
+dentist
+doctor visit
+medicine
+tuition
+textbooks
+online course
+new shoes
+clothes
+laptop
+headphones
+phone case
+movie tickets
+concert tickets
+birthday gift
+wedding gift
+salary
+bonus
+freelance work
+refund
+dividend
+sold old bike

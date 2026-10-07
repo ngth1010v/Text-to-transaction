@@ -1,0 +1,50 @@
+today
+yesterday
+tonight
+this morning
+this afternoon
+this evening
+last night
+yesterday morning
+yesterday afternoon
+the day before yesterday
+two days ago
+3 days ago
+a few days ago
+last week
+this week
+last month
+this month
+last weekend
+this weekend
+earlier today
+monday
+tuesday
+wednesday
+thursday
+friday
+saturday
+sunday
+last monday
+last friday
+last sunday
+friday night
+saturday morning
+oct 3
+october 5
+sept 15
+10/12
+2026-10-01
+the 1st
+the 15th
+end of month
+beginning of the month
+mid month
+jan 20
+december 24
+new years eve
+christmas
+payday
+just now
+an hour ago
+2 weeks ago

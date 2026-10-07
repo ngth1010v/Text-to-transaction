@@ -1,0 +1,50 @@
+cash
+wallet
+paypal
+venmo
+zelle
+cash app
+apple pay
+google pay
+samsung pay
+amazon pay
+visa
+mastercard
+amex
+discover card
+credit card
+debit card
+checking
+checking account
+savings
+savings account
+chase
+bank of america
+wells fargo
+citi
+capital one
+us bank
+pnc
+td bank
+ally
+chime
+revolut
+wise
+monzo
+n26
+hsbc
+barclays
+robinhood
+coinbase
+venmo credit card
+chase sapphire
+amex gold
+citi double cash
+apple card
+joint account
+business account
+emergency fund
+brokerage account
+gift card
+prepaid card
+starbucks card

@@ -1,0 +1,50 @@
+hôm nay
+hôm qua
+hôm kia
+sáng nay
+trưa nay
+chiều nay
+tối nay
+tối qua
+sáng qua
+chiều qua
+đêm qua
+trưa qua
+tuần trước
+tuần này
+tháng trước
+tháng này
+đầu tháng
+cuối tháng
+giữa tháng
+thứ hai
+thứ ba
+thứ tư
+thứ năm
+thứ sáu
+thứ bảy
+chủ nhật
+thứ 2
+thứ 7
+cn
+chủ nhật tuần trước
+thứ sáu tuần trước
+sáng thứ hai
+tối thứ bảy
+ngày 1
+ngày 15
+ngày 30
+mùng 5
+5/10
+12/9
+20/10
+01/10/2026
+ngày 3 tháng 10
+tháng 9
+tháng 8 năm nay
+2 hôm trước
+3 ngày trước
+mấy hôm trước
+hồi sáng
+lúc nãy
+vừa nãy

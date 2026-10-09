@@ -43,6 +43,13 @@ Quy ước BIO:
 
 Không có nhãn CATEGORY: người dùng tự tạo category nên tập category khác nhau ở mỗi người, model không thể học một bộ nhãn cố định. Bước gợi ý category nằm ngoài repo này.
 
+ACCOUNT cũng do người dùng tự tạo (`quỹ đen`, `ví mẹ`, `tk chung`...), nhưng vẫn giữ nhãn: model chỉ tìm cụm (span), không phân loại vào tập cố định. App tự khớp cụm ACCOUNT với danh sách account của người dùng (ngoài repo). Rủi ro: model học thuộc tên trong `account.txt` thay vì học ngữ cảnh. Cách giảm:
+
+- `account.txt` có cả tên ví/ngân hàng phổ biến lẫn tên kiểu người dùng tự đặt (`ví chính`, `heo đất`, `quỹ du lịch`, `ví 2`).
+- Template có nhiều từ gợi ý trước ACCOUNT (`qua`, `từ`, `vào`, `bằng`, `by`, `from`, `with`...).
+- `gen_data.py` thay một phần nhỏ account (khoảng 10-20%) bằng tên ngẫu nhiên (`ví|thẻ|tk|quỹ` + một từ bất kỳ), để model phải dựa vào vị trí và từ gợi ý.
+- Gợi ý cho app (ngoài repo): cụm khớp danh sách account của người dùng mà model gán `ITEM`/`O` thì đổi sang `ACCOUNT`.
+
 ## 3. Định dạng dữ liệu (JSONL)
 
 Mỗi dòng là một object JSON:
@@ -173,6 +180,7 @@ Không được cắt: tập test thật, metric F1, test vector.
 
 - Chỉ dùng tập test thật (`data/real_test/`) để kết luận chất lượng model. Điểm trên dữ liệu sinh chỉ để theo dõi quá trình train.
 - Không để cùng một mảnh gốc xuất hiện ở cả train lẫn test. Chia train/val/test theo mảnh gốc, không chia theo câu đã ghép. Chia riêng trong từng ngôn ngữ.
+- Tập test thật phải có câu chứa account tự đặt (không có trong `account.txt`), để F1 của ACCOUNT đo được khả năng nhận tên chưa gặp.
 - Metric chính: F1 theo cụm, báo riêng cho từng loại nhãn, từng ngôn ngữ, và trung bình chung.
 
 ## 11. Jira
@@ -183,6 +191,7 @@ Không được cắt: tập test thật, metric F1, test vector.
 - Sprint 2 "Model và xuất" (id 38): 12/10 → 17/10/2026 (M4-M7).
 - 04/10/2026: đổi kiến trúc từ BiLSTM sang Transformer encoder (giới hạn 100 từ/câu). Đã sửa epic M4, M5 và các task liên quan.
 - 05/10/2026: thiết kế mở rộng đa ngôn ngữ (`LANGS`, dữ liệu theo thư mục ngôn ngữ, F1 theo ngôn ngữ). Đã sửa mô tả TTTM-2, 3, 12, 13, 14, 16, 17, 18, 20, 27, 31, 34, 35, 36.
+- 09/10/2026: ACCOUNT do người dùng tự tạo (xem mục 2). Đã thêm tiêu chí vào TTTM-16 (tên tự đặt, từ gợi ý, thay tên ngẫu nhiên), TTTM-18 (câu có account chưa gặp), TTTM-36 (hậu xử lý ACCOUNT phía app).
 - Epic: `TTTM-1` (M0) đến `TTTM-8` (M7). Task: `TTTM-9` đến `TTTM-37`.
 - Ước lượng giờ ghi ở trường "Story point estimate" (1 điểm = 1 giờ) và trong mô tả. Project không có trường time tracking.
 - Quy ước đặt tên issue:

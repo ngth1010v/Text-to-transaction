@@ -1,9 +1,9 @@
 momo
-ví momo
+momo
 zalopay
 zalo pay
 shopeepay
-ví shopeepay
+shopeepay
 viettel money
 vnpay
 tiền mặt
@@ -30,21 +30,25 @@ msb
 timo
 cake
 ubank
-tài khoản lương
-tài khoản tiết kiệm
-thẻ tín dụng
-thẻ ghi nợ
-thẻ visa
-thẻ mastercard
-thẻ atm
-thẻ vcb
-thẻ tín dụng techcombank
-ví điện tử
+lương
+tiết kiệm
+tín dụng
+ghi nợ
+visa
+mastercard
+atm
+vcb
+tín dụng techcombank
+điện tử
 apple pay
 google pay
-thẻ jcb
+jcb
 heo đất
 quỹ đen
-tài khoản chung
-ví tiền
-thẻ tín dụng vib
+chung
+tiền
+tín dụng vib
+tiết kiệm
+tiết kiệm
+claude
+giải trí

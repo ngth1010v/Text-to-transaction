@@ -27,5 +27,6 @@ LANGS = ["vi", "en"]
 # ====================================================================================
 # DATA FORMAT
 # ====================================================================================
+RAW_TOKENS = ["account_prefix", "account", "date", "item", "money", "templates", "type"]
 FIELDS = ["id", "lang", "source", "tokens", "tags"]
 SOURCES = ["synthetic", "real"]

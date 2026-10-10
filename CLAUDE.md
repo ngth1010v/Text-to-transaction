@@ -47,7 +47,8 @@ ACCOUNT cũng do người dùng tự tạo (`quỹ đen`, `ví mẹ`, `tk chung`
 
 - `account.txt` có cả tên ví/ngân hàng phổ biến lẫn tên kiểu người dùng tự đặt (`ví chính`, `heo đất`, `quỹ du lịch`, `ví 2`).
 - Template có nhiều từ gợi ý trước ACCOUNT (`qua`, `từ`, `vào`, `bằng`, `by`, `from`, `with`...).
-- `gen_data.py` thay một phần nhỏ account (khoảng 10-20%) bằng tên ngẫu nhiên (`ví|thẻ|tk|quỹ` + một từ bất kỳ), để model phải dựa vào vị trí và từ gợi ý.
+- `gen_data.py` ghép mỗi account thành `[prefix] + tên + [suffix]`, trong đó prefix lấy từ `account_prefix.txt` (`ví`, `thẻ`, `tk`, `quỹ`, `my`...), suffix lấy từ `account_suffix.txt` (`chính`, `của mẹ`, `wallet`...), mỗi bên bỏ trống với xác suất 30%. Toàn bộ cụm (prefix + tên + suffix) gán `B-ACCOUNT` / `I-ACCOUNT`.
+- Khoảng 15% tên (`ACCOUNT_RATIO = 0.85`) lấy từ `item.txt` thay vì `account.txt`, và luôn có ít nhất prefix hoặc suffix (`ví cà phê`, `quỹ du lịch`), để model phải dựa vào vị trí và từ gợi ý chứ không học thuộc tên. Tên đã tự mang prefix/suffix (`ví chính`, `main wallet`) thì không thêm lần nữa.
 - Gợi ý cho app (ngoài repo): cụm khớp danh sách account của người dùng mà model gán `ITEM`/`O` thì đổi sang `ACCOUNT`.
 
 ## 3. Định dạng dữ liệu (JSONL)
@@ -65,7 +66,11 @@ Mỗi dòng là một object JSON:
 
 Thư mục dữ liệu:
 
-- `data/raw/<lang>/`: mảnh gốc và template của từng ngôn ngữ, mỗi loại một file: `money.txt`, `date.txt`, `account.txt`, `item.txt`, `type.txt`, `templates.txt`. `gen_data.py` đọc mọi thư mục có tên trong `LANGS`.
+- `data/raw/<lang>/`: mảnh gốc và template của từng ngôn ngữ, mỗi loại một file: `money.txt`, `date.txt`, `account.txt`, `account_prefix.txt`, `account_suffix.txt`, `item.txt`, `type.txt`, `templates.txt`. `gen_data.py` đọc mọi thư mục có tên trong `LANGS`.
+- Chia train/val/test chỉ áp dụng cho `money`, `date`, `account`, `item`, `type`. `account_prefix`, `account_suffix`, `templates` quá ít và không phải nội dung giao dịch nên dùng đủ ở cả 3 tập.
+- Một chuỗi chỉ thuộc đúng một split, kể cả khi nó có ở nhiều ngôn ngữ hoặc nhiều loại (`visa` ở vi lẫn en). Dòng trùng trong file raw bị bỏ khi đọc.
+- Trộn ngôn ngữ: mỗi pool (trừ prefix/suffix/templates) lấy ~6% mảnh từ ngôn ngữ khác (`MIX_MAIN_RATIO = 0.94`), trong cùng một split. Kết quả khoảng 10-20% câu là câu trộn vi-en; `gen_data()` trả `mixed_ratio` để theo dõi. `lang` của câu trộn là ngôn ngữ của template.
+- Chạy: `uv run python src/gen_data.py [--n 10000] [--seed 90]`; ghi `train.jsonl`, `val.jsonl`, `test.jsonl` vào `data/synth/`.
 - `data/synth/`: dữ liệu sinh ra (train / val / test), gộp mọi ngôn ngữ. Không commit, sinh lại bằng `gen_data.py`.
 - `data/real_test/<lang>.jsonl`: tập test thật gán tay, mỗi ngôn ngữ một file (tổng 100-200 câu). Có commit.
 
@@ -214,7 +219,7 @@ Không được cắt: tập test thật, metric F1, test vector.
 Chỉ áp dụng cho ngôn ngữ tách từ bằng khoảng trắng. Không sửa code ngoài bước 1 và bước 3.
 
 1. Thêm mã ngôn ngữ vào `LANGS` trong `src/schema.py`.
-2. Tạo `data/raw/<lang>/` với đủ 6 file mảnh gốc và template.
+2. Tạo `data/raw/<lang>/` với đủ 8 file mảnh gốc và template (xem mục 3).
 3. Khai báo hàm nhiễu nào áp dụng cho ngôn ngữ mới; thêm hàm nhiễu riêng nếu cần.
 4. Gán tay `data/real_test/<lang>.jsonl` (ít nhất 30 câu), chạy `check_data.py`.
 5. Sinh lại dữ liệu, train lại từ đầu (từ điển đổi nên embedding đổi).

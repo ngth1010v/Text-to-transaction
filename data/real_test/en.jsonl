@@ -98,3 +98,17 @@
 {"id": "real-en-0098", "lang": "en", "source": "real", "tokens": ["coffee", "at", "highlands", "45k", "vnd", "momo"], "tags": ["B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY", "I-MONEY", "B-ACCOUNT"]}
 {"id": "real-en-0099", "lang": "en", "source": "real", "tokens": ["yesterday", "pho", "50k", "cash"], "tags": ["B-DATE", "B-ITEM", "B-MONEY", "B-ACCOUNT"]}
 {"id": "real-en-0100", "lang": "en", "source": "real", "tokens": ["paid", "parking", "at", "uit", "5k", "dong", "momo", "yesterday"], "tags": ["B-TYPE", "B-ITEM", "I-ITEM", "I-ITEM", "B-MONEY", "I-MONEY", "B-ACCOUNT", "B-DATE"]}
+{"id": "real-mix-0011", "lang": "en", "source": "real", "tokens": ["bún", "chả", "50k", "cash", "today"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT", "B-DATE"]}
+{"id": "real-mix-0012", "lang": "en", "source": "real", "tokens": ["paid", "200k", "vnd", "for", "tiền", "điện", "momo"], "tags": ["B-TYPE", "B-MONEY", "I-MONEY", "O", "B-ITEM", "I-ITEM", "B-ACCOUNT"]}
+{"id": "real-mix-0013", "lang": "en", "source": "real", "tokens": ["yesterday", "bánh", "mì", "30k", "zalopay"], "tags": ["B-DATE", "B-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT"]}
+{"id": "real-mix-0014", "lang": "en", "source": "real", "tokens": ["sent", "500k", "to", "mẹ", "via", "vietcombank"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ITEM", "O", "B-ACCOUNT"]}
+{"id": "real-mix-0015", "lang": "en", "source": "real", "tokens": ["grab", "bike", "35k", "this", "morning", "ví", "momo"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-DATE", "I-DATE", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-mix-0016", "lang": "en", "source": "real", "tokens": ["received", "lì", "xì", "2", "triệu", "tết"], "tags": ["B-TYPE", "B-ITEM", "I-ITEM", "B-MONEY", "I-MONEY", "B-DATE"]}
+{"id": "real-en-0101", "lang": "en", "source": "real", "tokens": ["groceries", "$80", "grocery", "jar"], "tags": ["B-ITEM", "B-MONEY", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0102", "lang": "en", "source": "real", "tokens": ["transfer", "$300", "to", "vacation", "pot"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0103", "lang": "en", "source": "real", "tokens": ["movie", "night", "$25", "from", "fun", "money", "friday"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "O", "B-ACCOUNT", "I-ACCOUNT", "B-DATE"]}
+{"id": "real-en-0104", "lang": "en", "source": "real", "tokens": ["school", "lunch", "$5", "kids", "fund", "today"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "B-ACCOUNT", "I-ACCOUNT", "B-DATE"]}
+{"id": "real-en-0105", "lang": "en", "source": "real", "tokens": ["paid", "$60", "for", "tires", "with", "dad's", "card"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ITEM", "O", "B-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0106", "lang": "en", "source": "real", "tokens": ["deposit", "$200", "into", "rainy", "day", "jar"], "tags": ["B-TYPE", "B-MONEY", "O", "B-ACCOUNT", "I-ACCOUNT", "I-ACCOUNT"]}
+{"id": "real-en-0107", "lang": "en", "source": "real", "tokens": ["brake", "fast", "twelve", "bucks", "to", "day"], "tags": ["B-ITEM", "I-ITEM", "B-MONEY", "I-MONEY", "B-DATE", "I-DATE"]}
+{"id": "real-en-0108", "lang": "en", "source": "real", "tokens": ["spent", "forty", "dollars", "on", "gas", "yester", "day"], "tags": ["B-TYPE", "B-MONEY", "I-MONEY", "O", "B-ITEM", "B-DATE", "I-DATE"]}

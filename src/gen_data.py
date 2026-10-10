@@ -274,7 +274,7 @@ def fill_template(template, pools, rng, foreign=frozenset()):
 def noise_strip_accents(tokens, tags, lang, rng):
     """Bỏ dấu tiếng Việt (đ -> d)."""
     def strip(w):
-        w = w.replace("đ", "d")
+        w = w.replace("đ", "d").replace("Đ", "D")
         w = unicodedata.normalize("NFD", w)
         w = "".join(c for c in w if unicodedata.category(c) != "Mn")
         return unicodedata.normalize("NFC", w)

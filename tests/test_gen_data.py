@@ -54,6 +54,52 @@ def test_noise_keeps_length_and_bio():
         assert check_data.check_line(row) == ""
 
 
+def test_noise_strip_accents():
+    tokens, tags = gen_data.noise_strip_accents(["đổ", "xăng", "Đà", "nẵng"], ["B-ITEM"] * 4, "vi", random.Random(0))
+    assert tokens == ["do", "xang", "Da", "nang"]
+    assert tags == ["B-ITEM"] * 4
+
+
+def test_strip_accents_only_for_vi(monkeypatch):
+    """Câu en không bao giờ bị bỏ dấu (`café` giữ nguyên), kể cả khi xác suất = 1."""
+    langs = [l for fn, _, l in gen_data.NOISES if fn is gen_data.noise_strip_accents][0]
+    assert langs == ["vi"]
+    monkeypatch.setattr(gen_data, "NOISES", [(gen_data.noise_strip_accents, 1.0, langs)])
+    tokens, tags = ["café", "5", "dollars"], ["B-ITEM", "B-MONEY", "I-MONEY"]
+    assert gen_data.add_noise(tokens, tags, "en", random.Random(0))[0] == tokens
+    assert gen_data.add_noise(tokens, tags, "vi", random.Random(0))[0] == ["cafe", "5", "dollars"]
+
+
+def test_noise_abbreviate():
+    t, g = gen_data.noise_abbreviate(["không", "được", "5", "triệu"], ["O", "O", "B-MONEY", "I-MONEY"], "vi", random.Random(0))
+    assert t == ["ko", "đc", "5", "tr"]
+    assert g == ["O", "O", "B-MONEY", "I-MONEY"]
+    t, _ = gen_data.noise_abbreviate(["please", "with", "tomorrow"], ["O", "O", "B-DATE"], "en", random.Random(0))
+    assert t == ["pls", "w/", "tmrw"]
+
+
+def test_noise_typo():
+    tokens, tags = ["50k", "phở", "momo"], ["B-MONEY", "B-ITEM", "B-ACCOUNT"]
+    for seed in range(50):
+        t, g = gen_data.noise_typo(tokens, tags, "vi", random.Random(seed))
+        assert g == tags and len(t) == len(tokens)
+        assert t[0] == "50k" and t[1] == "phở"  # từ có số và từ < 4 ký tự không bị sửa
+        assert t[2] != ""
+    changed = {gen_data.noise_typo(tokens, tags, "vi", random.Random(s))[0][2] for s in range(50)}
+    assert len(changed - {"momo"}) > 0
+
+
+def test_noise_filler_is_O_and_not_inside_span():
+    tokens, tags = ["hôm", "qua", "5k", "phở"], ["B-DATE", "I-DATE", "B-MONEY", "B-ITEM"]
+    for seed in range(100):
+        t, g = gen_data.noise_filler(tokens, tags, "vi", random.Random(seed))
+        assert len(t) == len(tokens) + 1 and len(g) == len(t)
+        i = g.index("O")
+        assert t[i] in gen_data.FILLERS["vi"]
+        assert t[:i] + t[i + 1:] == tokens
+        assert not (i > 0 and g[i - 1] == "B-DATE")  # không chèn giữa `hôm qua`
+
+
 def test_load_lang_has_no_duplicates():
     for lang_code in schema.LANGS:
         for key, pieces in gen_data.load_lang(lang_code).items():

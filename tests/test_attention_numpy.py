@@ -60,3 +60,20 @@ def test_mask():
     params["E"][0] += 5.0
     after, _ = an.forward(params, word_ids)
     assert np.allclose(before[:5], after[:5])
+
+
+
+def test_gradient():
+    # std lớn để gradient không quá nhỏ, tránh nhiễu số học làm sai lệch giả
+    params = an.init_params(20, std=0.5)
+
+    # 7 từ, có từ lặp (id 3 và 5) để bắt lỗi cộng dồn gradient của embedding
+    word_ids = an.pad_words(np.array([3, 5, 7, 5, 9, 2, 3]))
+    tag_ids = an.pad_tags(np.array([1, 2, 0, 4, 5, 6, 1]))
+
+    errs = an.grad_check(params, word_ids, tag_ids)
+
+    # buổi 1: Wout, Bout, Wo. Buổi 2 sẽ có đủ E, P, Wq, Wk, Wv
+    assert set(errs) >= {"Wout", "Bout", "Wo"}
+    for key, err in errs.items():
+        assert err < 1e-5, f"{key}: sai lệch {err}"

@@ -202,36 +202,16 @@ def loss_fn(logits, tag_ids):
 
 
 
-def train_mini(rows, epochs=300, lr=0.1, d=32, seed=0):
-    train_path = Path(__file__).resolve().parent.parent / "data" / "synth" / "train.jsonl"
+def train_mini(rows, word2id, epochs=300, lr=0.1, d=32, seed=0):
 
-    with open(train_path, "r", encoding="utf-8") as f:
-        lines = f.readlines()
-    data = []
-    for r in rows:
-        line = lines[r]
-        if line.strip():
-            data.append(json.loads(line))
+    vocab_size = len(word2id) + 1 # +1 cho pad
+    params = init_params(vocab_size, d=d, seed=seed, std=0.1) # std==0.5 làm số bị nổ lên inf
 
-
-    word_set = set()
-    for line in data:
-        for word in line["tokens"]:
-            word_set.add(word)
-    word_set = sorted(word_set)
-    word2id = {}
-    for id, word in enumerate(word_set, start=1): 
-        word2id[word] = id
-
-
-
-
-    vocab_size = len(word_set) + 1 # +1 cho pad
-    params = init_params(vocab_size)
-
-
+    loss_history = []
     for _ in range (epochs):
-        for line in data:
+
+        total_loss = 0
+        for line in rows:
 
             word_ids = [word2id[w] for w in line["tokens"]]
             word_ids = pad_words(word_ids)            
@@ -243,14 +223,64 @@ def train_mini(rows, epochs=300, lr=0.1, d=32, seed=0):
 
             grads = backward(params, cache, probs, tag_ids)
 
+            for name in grads:
+                params[name] -= lr * grads[name]
+
+            total_loss += loss
+
+        avg_loss = total_loss / len(rows)
+        loss_history.append(avg_loss)
+        if (len(loss_history) % 20 == 0):
+            print(avg_loss)
+
+        if avg_loss < 0.1:
+            break
+        
+    return params, loss_history
+
+
+def accuracy(params, rows, word2id):
+    dung = tong = 0
+    for r in rows:
+        word_ids = pad_words([word2id[w] for w in r["tokens"]])
+        tag_ids = pad_tags([schema.TAG2ID[t] for t in r["tags"]])
+        logits, _ = forward(params, word_ids)
+        valid = tag_ids != -100
+        dung += (logits.argmax(-1)[valid] == tag_ids[valid]).sum()
+        tong += valid.sum()
+    return dung / tong
             
 
 
 if __name__ == "__main__":
 
-    train_mini(
-        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
-    )
+    train_path = Path(__file__).resolve().parent.parent / "data" / "synth" / "train.jsonl"
+
+    limit = 20
+    with open(train_path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+    rows = []
+    for line in lines:
+        if line.strip():
+            rows.append(json.loads(line))
+        if len(rows) >= limit:
+            break
+
+    word_set = set()
+    for line in rows:
+        for word in line["tokens"]:
+            word_set.add(word)
+    word_set = sorted(word_set)
+    word2id = {}
+    for id, word in enumerate(word_set, start=1): 
+        word2id[word] = id
+
+
+    params, history = train_mini(rows, word2id)
+    print(accuracy(params, rows, word2id))
+
+
+
 
 
 

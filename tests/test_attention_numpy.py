@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 import attention_numpy as an
 import numpy as np
 
@@ -77,3 +80,32 @@ def test_gradient():
     assert set(errs) == {"E", "P", "Wq", "Wk", "Wv", "Wo", "Wout", "Bout"}
     for key, err in errs.items():
         assert err < 1e-5, f"{key}: sai lệch {err}"
+
+
+# ---- train thử trên 20 câu mini (TTTM-25) ----
+
+def _load_mini():
+    path = Path(__file__).parent / "data" / "mini_train.jsonl"
+    with open(path, encoding="utf-8") as f:
+        rows = [json.loads(line) for line in f if line.strip()]
+    words = sorted({w for r in rows for w in r["tokens"]})
+    word2id = {w: i for i, w in enumerate(words, start=1)}
+    return rows, word2id
+
+
+def test_overfit():
+    # model đúng phải học thuộc được 20 câu: loss < 0.1 và đoán đúng 100% nhãn
+    rows, word2id = _load_mini()
+    params, history = an.train_mini(rows, word2id, epochs=300, lr=0.1)
+
+    assert history[-1] < 0.1
+    assert an.accuracy(params, rows, word2id) == 1.0
+
+
+def test_same_seed():
+    # cùng seed (không có yếu tố ngẫu nhiên khác) thì đường loss phải giống hệt
+    rows, word2id = _load_mini()
+    _, h1 = an.train_mini(rows, word2id, epochs=5, seed=0)
+    _, h2 = an.train_mini(rows, word2id, epochs=5, seed=0)
+
+    assert h1 == h2

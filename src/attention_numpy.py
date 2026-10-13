@@ -117,6 +117,31 @@ def backward(params, cache, probs, tag_ids):
     grads["Wo"] = cache["ctx"].T @ dh
     dctx = dh @ params["Wo"].T
 
+    # đạo hàm của: ctx = A @ V
+    dA = dctx @ cache["V"].T
+    dV = cache["A"].T @ dctx
+
+    # đạo hàm của: A = softmax(S) theo hàng
+    # vị trí bị mask có A = 0 nên dS = 0 tự động, không cần xử lý riêng
+    dS = cache["A"] * (dA - (dA * cache["A"]).sum(axis=1, keepdims=True))
+
+    # đạo hàm của: S = Q @ K.T / sqrt(d)
+    dQ = dS @ cache["K"] / np.sqrt(params["d"])
+    dK = dS.T @ cache["Q"] / np.sqrt(params["d"])
+
+    # đạo hàm của: Q, K, V = x @ Wq, x @ Wk, x @ Wv
+    grads["Wq"] = cache["x"].T @ dQ
+    grads["Wk"] = cache["x"].T @ dK
+    grads["Wv"] = cache["x"].T @ dV
+    # x được dùng ở 3 nhánh này và nhánh tắt residual nên cộng dồn vào dx
+    dx += dQ @ params["Wq"].T + dK @ params["Wk"].T + dV @ params["Wv"].T
+
+    # đạo hàm của: x = E[word_ids] + P
+    grads["P"] = dx
+    grads["E"] = np.zeros_like(params["E"])
+    # np.add.at vì một từ có thể lặp lại trong câu, cần cộng dồn thay vì ghi đè
+    np.add.at(grads["E"], cache["word_ids"], dx)
+
     return grads
 
 

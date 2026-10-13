@@ -73,7 +73,7 @@ def test_gradient():
 
     errs = an.grad_check(params, word_ids, tag_ids)
 
-    # buổi 1: Wout, Bout, Wo. Buổi 2 sẽ có đủ E, P, Wq, Wk, Wv
-    assert set(errs) >= {"Wout", "Bout", "Wo"}
+    # phải có gradient của đủ 8 tham số: embedding từ, vị trí, Wq, Wk, Wv, Wo, lớp ra
+    assert set(errs) == {"E", "P", "Wq", "Wk", "Wv", "Wo", "Wout", "Bout"}
     for key, err in errs.items():
         assert err < 1e-5, f"{key}: sai lệch {err}"

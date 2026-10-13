@@ -2,7 +2,9 @@
 
 import numpy as np
 import math
-
+import json
+from pathlib import Path
+import schema
 
 
 def _softmax_by_row(z):
@@ -12,19 +14,18 @@ def _softmax_by_row(z):
     return e / e.sum(axis=1, keepdims=True)
 
 
-    
 
 def pad_words(ids, length=100):
     X = np.zeros(length, dtype=int)
     X[:len(ids)] = ids
     return X
 
+
+
 def pad_tags(ids, length=100):
     X = np.full(length, -100, dtype=int)
     X[:len(ids)] = ids
     return X
-
-
 
 
 
@@ -95,6 +96,7 @@ def forward(params, word_ids):
     }
 
 
+
 def backward(params, cache, probs, tag_ids):
     grads = {}
 
@@ -143,6 +145,7 @@ def backward(params, cache, probs, tag_ids):
     np.add.at(grads["E"], cache["word_ids"], dx)
 
     return grads
+
 
 
 def grad_check(params, word_ids, tag_ids, eps=1e-5, n_samples=20, seed=0):
@@ -199,17 +202,68 @@ def loss_fn(logits, tag_ids):
 
 
 
+def train_mini(rows, epochs=300, lr=0.1, d=32, seed=0):
+    train_path = Path(__file__).resolve().parent.parent / "data" / "synth" / "train.jsonl"
+
+    with open(train_path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+    data = []
+    for r in rows:
+        line = lines[r]
+        if line.strip():
+            data.append(json.loads(line))
+
+
+    word_set = set()
+    for line in data:
+        for word in line["tokens"]:
+            word_set.add(word)
+    word_set = sorted(word_set)
+    word2id = {}
+    for id, word in enumerate(word_set, start=1): 
+        word2id[word] = id
+
+
+
+
+    vocab_size = len(word_set) + 1 # +1 cho pad
+    params = init_params(vocab_size)
+
+
+    for _ in range (epochs):
+        for line in data:
+
+            word_ids = [word2id[w] for w in line["tokens"]]
+            word_ids = pad_words(word_ids)            
+            logits, cache = forward(params, word_ids)
+
+            tag_ids = [schema.TAG2ID[w] for w in line["tags"]]
+            tag_ids = pad_tags(tag_ids)
+            loss, probs = loss_fn(logits, tag_ids)
+
+            grads = backward(params, cache, probs, tag_ids)
+
+            
+
+
 if __name__ == "__main__":
-    params = init_params(100)
 
-    word_ids = np.arange(1,51, dtype=int)
-    word_ids = pad_words(word_ids)
-    logits, cache = forward(params, word_ids)
-
-    tag_ids = np.random.randint(0, 11, 50, dtype=int)
-    tag_ids = pad_tags(tag_ids)
-    loss, probs = loss_fn(logits, tag_ids)
+    train_mini(
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+    )
 
 
-    backward(params, cache, probs, tag_ids)
+
+    # params = init_params(100)
+
+    # word_ids = np.arange(1,51, dtype=int)
+    # word_ids = pad_words(word_ids)
+    # logits, cache = forward(params, word_ids)
+
+    # tag_ids = np.random.randint(0, 11, 50, dtype=int)
+    # tag_ids = pad_tags(tag_ids)
+    # loss, probs = loss_fn(logits, tag_ids)
+
+
+    # backward(params, cache, probs, tag_ids)
 

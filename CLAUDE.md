@@ -86,6 +86,13 @@ Nhiễu trong `gen_data.py`: mỗi hàm nhiễu khai báo áp dụng cho ngôn n
 - Attention phải chặn vị trí đệm (gán điểm attention = -inf trước softmax). Không dùng causal mask: mỗi từ được nhìn cả hai phía.
 - Một model chung cho mọi ngôn ngữ, không có đầu vào `lang` (câu có thể trộn vi-en). Từ điển từ và từ điển ký tự xây từ tập train gộp mọi ngôn ngữ.
 
+Embedding từ có sẵn (pretrained), đóng băng khi train:
+
+- Nguồn: fastText Common Crawl `cc.<lang>.300.vec.gz` (https://fasttext.cc/docs/en/crawl-vectors.html), cùng một nguồn cho mọi ngôn ngữ. Token tiếng Việt của fastText là âm tiết (tách theo khoảng trắng), khớp `normalize.py`.
+- Giấy phép CC BY-SA 3.0: được nhúng vào app (kể cả thương mại), phải ghi nguồn. Không dùng PhoW2V: giấy phép chỉ cho nghiên cứu/giáo dục và cấm phân phối dù chỉ một phần, nên không được đóng bảng đã lọc vào app.
+- `src/get_embeddings.py` chỉ tải phần đầu file (file xếp theo tần suất giảm dần, mặc định 100 000 dòng/ngôn ngữ, khoảng 67 MB tải về mỗi ngôn ngữ), giảm 300 → 100 chiều bằng PCA (NumPy), rồi ghi `data/embeddings/<lang>.txt` (định dạng word2vec text, khoảng 100 MB/ngôn ngữ, không commit). Không tải cả file (1.2-1.3 GB/ngôn ngữ).
+- App chỉ mang bảng đã lọc trong `weights.npz` (`top_n` từ/ngôn ngữ + từ train, khoảng 16 MB với `top_n` = 20 000, float32, 100 chiều), không mang file embedding gốc.
+
 ## 5. Chuẩn hóa văn bản
 
 `src/normalize.py` phải khớp 100% với bản viết lại bằng Kotlin.
@@ -146,12 +153,14 @@ src/
   metrics.py       # F1 theo cụm
   baseline.py      # baseline rule-based
   attention_numpy.py # self-attention thuần NumPy
+  get_embeddings.py  # tải một phần embedding fastText + PCA 300 -> 100 chiều
   model_torch.py   # Transformer encoder nhỏ (+ char-CNN tùy chọn)
   train.py         # vòng train tự viết
   export.py        # xuất model + test vector
 data/
   raw/<lang>/      # mảnh gốc + template theo ngôn ngữ
   synth/           # dữ liệu sinh (không commit)
+  embeddings/      # <lang>.txt, embedding đã lọc + PCA (không commit, sinh bằng get_embeddings.py)
   real_test/       # <lang>.jsonl, test thật gán tay
 tests/
 export/            # model, vocab, test vector (đầu ra, không commit)
@@ -160,7 +169,7 @@ export/            # model, vocab, test vector (đầu ra, không commit)
 ## 9. Lịch làm việc
 
 - 2-3 giờ/ngày, thứ Hai đến thứ Bảy, nghỉ Chủ nhật. Tổng khoảng 33 giờ.
-- Bắt đầu thứ Hai 05/10/2026, kết thúc thứ Bảy 17/10/2026.
+- Bắt đầu thứ Hai 05/10/2026. Kế hoạch gốc kết thúc thứ Bảy 17/10/2026; dời lại kết thúc thứ Bảy 24/10/2026 (xem bảng "Lịch dời" bên dưới).
 
 | Module | Nội dung | Giờ | Deadline |
 |---|---|---|---|
@@ -169,9 +178,21 @@ export/            # model, vocab, test vector (đầu ra, không commit)
 | M2 | Bộ sinh dữ liệu từ template (ghép mảnh theo nhiều thứ tự), nhiễu (bỏ dấu, viết tắt, lỗi gõ, từ đệm), chia train/val/test theo mảnh gốc, tập test thật gán tay (100-200 câu) | 8 | T6 09/10 |
 | M3 | Metric F1 theo cụm tự viết + baseline rule-based làm mốc so sánh | 3 | T7 10/10 |
 | M4 | Self-attention thuần NumPy (1 head, có mask đệm, residual, positional embedding): forward, backward, kiểm tra gradient, train thử trên dữ liệu mini | 6 | T3 13/10 |
-| M5 | Transformer encoder nhỏ (có thể thêm char-CNN) bằng PyTorch, attention tự viết: tensor hóa dữ liệu (100 từ × 16 ký tự), vòng train tự viết, early stopping, chấm điểm bằng metric ở M3 | 6 | T5 15/10 |
-| M6 | Phân tích lỗi trên tập test thật, bổ sung kiểu câu bị sai vào bộ sinh, train lại | 2.5 | T6 16/10 |
-| M7 | Xuất model (trọng số .npz hoặc JSON + từ điển từ/ký tự + danh sách nhãn + cấu hình), 100 test vector cho Kotlin, README hướng dẫn tích hợp | 3 | T7 17/10 |
+| M5 | Transformer encoder nhỏ (có thể thêm char-CNN) bằng PyTorch, attention tự viết: tensor hóa dữ liệu (100 từ × 16 ký tự), vòng train tự viết, early stopping, chấm điểm bằng metric ở M3 | 6.5 | ~~T5 15/10~~ T5 22/10 |
+| M6 | Phân tích lỗi trên tập test thật, bổ sung kiểu câu bị sai vào bộ sinh, train lại | 2.5 | ~~T6 16/10~~ T5 22/10 |
+| M7 | Xuất model (trọng số .npz hoặc JSON + từ điển từ/ký tự + danh sách nhãn + cấu hình), 100 test vector cho Kotlin, README hướng dẫn tích hợp | 3 | ~~T7 17/10~~ T7 24/10 |
+
+Lịch dời (quyết định 17/10/2026): M0-M4 xong đúng hạn; M5 trễ (TTTM-27 mới có `load_vectors`). Phần còn lại khoảng 11.75 giờ (đã cộng 0.5 giờ cho `get_embeddings.py` khi đổi sang fastText), làm T3 20/10 → T7 24/10 (T2 19/10 không xếp việc):
+
+| Ngày | Task | Giờ |
+|---|---|---|
+| T3 20/10 | TTTM-27 (`get_embeddings.py` + tải, `build_vocab`, `encode`, `encode_all`, `iterate_batches`, test) + TTTM-28 phần đầu (`SelfAttention`, `EncoderBlock`) | 2.5 |
+| T4 21/10 | TTTM-28 phần còn lại (`CharCNN`, `Tagger`, test) + TTTM-29 `train.py` phần lớn | 3 |
+| T5 22/10 | TTTM-29 chấm test thật + TTTM-30 ghi chú M5; TTTM-31 phân tích lỗi + TTTM-32 bổ sung bộ sinh, train lại | 3 |
+| T6 23/10 | TTTM-33 ghi chú M6 + TTTM-34 `export.py` + TTTM-35 100 test vector | 2.25 |
+| T7 24/10 | TTTM-36 README Kotlin + TTTM-37 ghi chú M7; còn ~1 giờ dự phòng | 1 |
+
+Tải embedding mất khoảng 25 phút với mạng ~85 KB/s (đo ngày 17/10): chạy `get_embeddings.py` ở nền ngay khi viết xong, làm `build_vocab` trong lúc chờ.
 
 Khi bị trễ, cắt theo thứ tự:
 
@@ -193,10 +214,12 @@ Không được cắt: tập test thật, metric F1, test vector.
 - Site: https://ai-engineer-learning.atlassian.net
 - Mã project: `TTTM` (tên `Text-to-transaction-map`, team-managed, board Scrum id 34). Key đề xuất ban đầu là `TTAG`; project được tạo thủ công với key `TTTM`.
 - Sprint 1 "Dữ liệu và nền tảng" (id 37): 05/10 → 10/10/2026 (M0-M3).
-- Sprint 2 "Model và xuất" (id 38): 12/10 → 17/10/2026 (M4-M7).
+- Sprint 2 "Model và xuất" (id 38): 12/10 → 24/10/2026 (M4-M7). Ban đầu kết thúc 17/10, gia hạn ngày 17/10/2026 do trễ M5.
 - 04/10/2026: đổi kiến trúc từ BiLSTM sang Transformer encoder (giới hạn 100 từ/câu). Đã sửa epic M4, M5 và các task liên quan.
 - 05/10/2026: thiết kế mở rộng đa ngôn ngữ (`LANGS`, dữ liệu theo thư mục ngôn ngữ, F1 theo ngôn ngữ). Đã sửa mô tả TTTM-2, 3, 12, 13, 14, 16, 17, 18, 20, 27, 31, 34, 35, 36.
 - 09/10/2026: ACCOUNT do người dùng tự tạo (xem mục 2). Đã thêm tiêu chí vào TTTM-16 (tên tự đặt, từ gợi ý, thay tên ngẫu nhiên), TTTM-18 (câu có account chưa gặp), TTTM-36 (hậu xử lý ACCOUNT phía app).
+- 17/10/2026: dời lịch phần còn lại (TTTM-27 → TTTM-37) sang 20/10 → 24/10 (xem mục 9). Đã sửa due date các task, deadline trong mô tả epic M5-M7, ngày kết thúc Sprint 2; chuyển epic M0-M4 sang Done, M5 sang In Progress.
+- 17/10/2026: đổi embedding từ PhoW2V (vi) + GloVe (en) sang fastText Common Crawl cho cả hai (xem mục 4): giấy phép PhoW2V cấm phân phối nên không nhúng được vào app Android; tải cả GloVe 6B zip là 862 MB. Đã sửa TTTM-27 (thêm `get_embeddings.py`, 2.5 giờ), TTTM-28, TTTM-34, TTTM-36 và due date theo bảng mục 9.
 - Epic: `TTTM-1` (M0) đến `TTTM-8` (M7). Task: `TTTM-9` đến `TTTM-37`.
 - Ước lượng giờ ghi ở trường "Story point estimate" (1 điểm = 1 giờ) và trong mô tả. Project không có trường time tracking.
 - Quy ước đặt tên issue:
@@ -219,7 +242,7 @@ Không được cắt: tập test thật, metric F1, test vector.
 Chỉ áp dụng cho ngôn ngữ tách từ bằng khoảng trắng. Không sửa code ngoài bước 1 và bước 3.
 
 1. Thêm mã ngôn ngữ vào `LANGS` trong `src/schema.py`.
-2. Tạo `data/raw/<lang>/` với đủ 8 file mảnh gốc và template (xem mục 3).
+2. Tạo `data/raw/<lang>/` với đủ 8 file mảnh gốc và template (xem mục 3). Chạy `get_embeddings.py` để tạo `data/embeddings/<lang>.txt` (fastText có sẵn cho 157 ngôn ngữ).
 3. Khai báo hàm nhiễu nào áp dụng cho ngôn ngữ mới; thêm hàm nhiễu riêng nếu cần.
 4. Gán tay `data/real_test/<lang>.jsonl` (ít nhất 30 câu), chạy `check_data.py`.
 5. Sinh lại dữ liệu, train lại từ đầu (từ điển đổi nên embedding đổi).

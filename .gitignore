@@ -5,3 +5,4 @@ data/synth/*
 !data/synth/.gitkeep
 export/*
 !export/.gitkeep
+data/embeddings/*

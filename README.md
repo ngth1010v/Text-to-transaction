@@ -24,10 +24,27 @@ uv add <tên>          # thư viện chạy
 uv add --dev <tên>    # chỉ dùng khi phát triển (pytest...)
 ```
 
+## Embedding (fastText)
+
+Model dùng embedding từ có sẵn, đóng băng khi train, cùng một nguồn cho mọi ngôn ngữ trong `LANGS`.
+
+- Nguồn: [fastText Common Crawl](https://fasttext.cc/docs/en/crawl-vectors.html) (`cc.<lang>.300.vec.gz`) của Facebook AI Research.
+- Giấy phép: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). Được nhúng vào app (kể cả thương mại) nhưng phải ghi nguồn; bảng embedding đã lọc trong app là bản dẫn xuất nên cũng phải ghi nguồn này.
+- `get_embeddings.py` chỉ tải phần đầu file (mặc định 100 000 dòng/ngôn ngữ, khoảng 67 MB mỗi ngôn ngữ, không tải cả file 1.2 GB), giảm 300 → 100 chiều bằng PCA, rồi ghi `data/embeddings/<lang>.txt` (khoảng 85 MB/ngôn ngữ, không commit).
+
+```
+uv run python src/get_embeddings.py [--lines 100000] [--dim 100]
+```
+
+Mạng chậm thì mất khoảng 25 phút; nên chạy ở nền. Cần chạy trước khi train.
+
+Trích dẫn: E. Grave, P. Bojanowski, P. Gupta, A. Joulin, T. Mikolov, *Learning Word Vectors for 157 Languages*, LREC 2018.
+
 ## Cách chạy
 
 TODO: bổ sung dần theo từng module.
 
+- Tải embedding: `uv run python src/get_embeddings.py` (M5)
 - Sinh dữ liệu: `uv run python src/gen_data.py` (M2)
 - Kiểm tra dữ liệu: `uv run python src/check_data.py <file.jsonl>` (M1)
 - Baseline rule-based trên tập test thật: `uv run python src/baseline.py` (M3)

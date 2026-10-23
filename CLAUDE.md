@@ -178,8 +178,8 @@ export/            # model, vocab, test vector (đầu ra, không commit)
 | M2 | Bộ sinh dữ liệu từ template (ghép mảnh theo nhiều thứ tự), nhiễu (bỏ dấu, viết tắt, lỗi gõ, từ đệm), chia train/val/test theo mảnh gốc, tập test thật gán tay (100-200 câu) | 8 | T6 09/10 |
 | M3 | Metric F1 theo cụm tự viết + baseline rule-based làm mốc so sánh | 3 | T7 10/10 |
 | M4 | Self-attention thuần NumPy (1 head, có mask đệm, residual, positional embedding): forward, backward, kiểm tra gradient, train thử trên dữ liệu mini | 6 | T3 13/10 |
-| M5 | Transformer encoder nhỏ (có thể thêm char-CNN) bằng PyTorch, attention tự viết: tensor hóa dữ liệu (100 từ × 16 ký tự), vòng train tự viết, early stopping, chấm điểm bằng metric ở M3 | 6.5 | ~~T5 15/10~~ T5 22/10 |
-| M6 | Phân tích lỗi trên tập test thật, bổ sung kiểu câu bị sai vào bộ sinh, train lại | 2.5 | ~~T6 16/10~~ T5 22/10 |
+| M5 | Transformer encoder nhỏ (có thể thêm char-CNN) bằng PyTorch, attention tự viết: tensor hóa dữ liệu (100 từ × 16 ký tự), vòng train tự viết, early stopping, chấm điểm bằng metric ở M3 | 6.5 | ~~T5 15/10~~ T7 24/10 |
+| M6 | Phân tích lỗi trên tập test thật, bổ sung kiểu câu bị sai vào bộ sinh, train lại | 2.5 | ~~T6 16/10~~ T7 24/10 |
 | M7 | Xuất model (trọng số .npz hoặc JSON + từ điển từ/ký tự + danh sách nhãn + cấu hình), 100 test vector cho Kotlin, README hướng dẫn tích hợp | 3 | ~~T7 17/10~~ T7 24/10 |
 
 Lịch dời (quyết định 17/10/2026): M0-M4 xong đúng hạn; M5 trễ (TTTM-27 mới có `load_vectors`). Phần còn lại khoảng 11.75 giờ (đã cộng 0.5 giờ cho `get_embeddings.py` khi đổi sang fastText), làm T3 20/10 → T7 24/10 (T2 19/10 không xếp việc):
@@ -191,6 +191,8 @@ Lịch dời (quyết định 17/10/2026): M0-M4 xong đúng hạn; M5 trễ (TT
 | T5 22/10 | TTTM-29 chấm test thật + TTTM-30 ghi chú M5; TTTM-31 phân tích lỗi + TTTM-32 bổ sung bộ sinh, train lại | 3 |
 | T6 23/10 | TTTM-33 ghi chú M6 + TTTM-34 `export.py` + TTTM-35 100 test vector | 2.25 |
 | T7 24/10 | TTTM-36 README Kotlin + TTTM-37 ghi chú M7; còn ~1 giờ dự phòng | 1 |
+
+Từ 21/10/2026: mọi task chưa xong (TTTM-28 → 37) và epic M5-M7 có chung deadline T7 24/10 (cuối tuần), không đặt deadline riêng từng task. Bảng ngày ở trên chỉ là thứ tự gợi ý. Task dài hơn 30 phút được tách thành sub-task tối đa 0.5 giờ (TTTM-38 → 59, xem mục 11).
 
 Tải embedding mất khoảng 25 phút với mạng ~85 KB/s (đo ngày 17/10): chạy `get_embeddings.py` ở nền ngay khi viết xong, làm `build_vocab` trong lúc chờ.
 
@@ -220,8 +222,11 @@ Không được cắt: tập test thật, metric F1, test vector.
 - 09/10/2026: ACCOUNT do người dùng tự tạo (xem mục 2). Đã thêm tiêu chí vào TTTM-16 (tên tự đặt, từ gợi ý, thay tên ngẫu nhiên), TTTM-18 (câu có account chưa gặp), TTTM-36 (hậu xử lý ACCOUNT phía app).
 - 17/10/2026: dời lịch phần còn lại (TTTM-27 → TTTM-37) sang 20/10 → 24/10 (xem mục 9). Đã sửa due date các task, deadline trong mô tả epic M5-M7, ngày kết thúc Sprint 2; chuyển epic M0-M4 sang Done, M5 sang In Progress.
 - 17/10/2026: đổi embedding từ PhoW2V (vi) + GloVe (en) sang fastText Common Crawl cho cả hai (xem mục 4): giấy phép PhoW2V cấm phân phối nên không nhúng được vào app Android; tải cả GloVe 6B zip là 862 MB. Đã sửa TTTM-27 (thêm `get_embeddings.py`, 2.5 giờ), TTTM-28, TTTM-34, TTTM-36 và due date theo bảng mục 9.
-- Epic: `TTTM-1` (M0) đến `TTTM-8` (M7). Task: `TTTM-9` đến `TTTM-37`.
-- Ước lượng giờ ghi ở trường "Story point estimate" (1 điểm = 1 giờ) và trong mô tả. Project không có trường time tracking.
+- 21/10/2026: deadline mọi task chưa xong và epic M5-M7 dời về T7 24/10 (cuối tuần). Tách task dài hơn 30 phút thành sub-task tối đa 0.5 giờ: TTTM-28 → 38-40, TTTM-29 → 41-46, TTTM-31 → 47-48, TTTM-32 → 49-51, TTTM-34 → 52-54, TTTM-35 → 55, 59, TTTM-36 → 56-58. Task cha giữ mô tả chi tiết và tổng điểm.
+- Epic: `TTTM-1` (M0) đến `TTTM-8` (M7). Task: `TTTM-9` đến `TTTM-37`. Sub-task: `TTTM-38` đến `TTTM-59`.
+- Ước lượng giờ ghi ở trường "Story point estimate" (1 điểm = 1 giờ, 30 phút = 0.5) và trong mô tả. Project không có trường time tracking.
+- Mỗi việc tối đa 30 phút; việc dài hơn thì tách thành sub-task (loại issue `Subtask`, tên theo quy ước task). Sub-task không đặt được due date lúc tạo: tạo trước rồi sửa due date sau.
+- Deadline: các task trong cùng một tuần dùng chung deadline là thứ Bảy cuối tuần.
 - Quy ước đặt tên issue:
   - Epic: `M<số>: <tên module>`, ví dụ `M1: Schema và chuẩn hóa`.
   - Task: `[M<số>] <việc cần làm>`, ví dụ `[M1] Viết check_data.py`.
